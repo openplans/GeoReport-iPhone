@@ -20,6 +20,8 @@
 
 #import <Foundation/Foundation.h>
 #import "JSON.h"
+#import "GDataXMLNode.h"
+
 @class UshahidiProjAppDelegate;
 @interface API : NSObject {
 	NSString *endPoint;
@@ -48,5 +50,13 @@
 @property (nonatomic, retain, readonly) NSString *errorDesc;
 @property (nonatomic, retain, readonly) NSData *responseData;
 @property (nonatomic, retain, readonly) NSString *responseXML;
+
+@end
+
+
+
+@interface GDataXMLNode (XMLNodeUtils)
+
+- (NSString *)firstStringByXpath:(NSString*)xpath;
 
 @end

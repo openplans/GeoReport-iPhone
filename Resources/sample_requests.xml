@@ -1,0 +1,44 @@
+<service_requests>
+
+<request>
+	<service_request_id>638344</service_request_id>
+	<status>closed</status>
+	<status_notes>Duplicate request.</status_notes>
+	<service_name>Sidewalk and Curb Issues</service_name>
+	<service_code>006</service_code>
+	<description>Something disgusting is on the pavement</description>
+	<agency_responsible></agency_responsible>
+	<service_notice></service_notice>
+	<requested_datetime>2010-04-14T06:37:38-08:00</requested_datetime>
+	<updated_datetime>2010-04-14T06:37:38-08:00</updated_datetime>
+	<expected_datetime>2010-04-15T06:37:38-08:00</expected_datetime>
+	<address>8TH AVE and JUDAH ST</address>
+	<address_id>545483</address_id>
+	<zipcode>94122</zipcode>
+	<lat>37.762221815</lat>
+	<long>-122.4651145</long>
+	<georss:point xmlns:georss="http://www.georss.org/georss">37.762221815 -122.4651145</georss:point>
+</request>
+
+<request>
+	<service_request_id>123</service_request_id>
+	<status>open</status>
+	<status_notes></status_notes>
+	<service_name>Sidewalk and Curb Issues</service_name>
+	<service_code>006</service_code>
+	<description>antique slate sidewalks are so bumpy i can't use my wheelchair</description>
+	<agency_responsible></agency_responsible>
+	<service_notice></service_notice>
+	<requested_datetime>2010-05-15T16:37:38-08:00</requested_datetime>
+	<updated_datetime>2010-05-15T16:39:01-08:00</updated_datetime>
+	<expected_datetime>2010-05-28T04:14:27-08:00</expected_datetime>
+	<address>SOMEWHERE OR OTHER</address>
+	<address_id>545484</address_id>
+	<zipcode>94122</zipcode>
+	<lat>37.762321815</lat>
+	<long>-122.466</long>
+	<georss:point xmlns:georss="http://www.georss.org/georss">37.762321815 -122.466</georss:point>
+</request>
+
+</service_requests>
+

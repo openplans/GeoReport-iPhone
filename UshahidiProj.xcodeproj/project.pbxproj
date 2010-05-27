@@ -63,6 +63,7 @@
 		3739FFD71199C41300F06E6E /* UshahidiProj-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */; };
 		8475ADDF11ADBF2A0000A4F7 /* sample_request_types.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */; };
 		8475AE1D11ADFA440000A4F7 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */; };
+		84F0466711AEDE8D008C0A60 /* sample_requests.xml in Resources */ = {isa = PBXBuildFile; fileRef = 84F0466611AEDE8D008C0A60 /* sample_requests.xml */; };
 		9E55B06B115DFE7500B69B3A /* selectCatagory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E55B069115DFE7500B69B3A /* selectCatagory.m */; };
 		9E7C3AE01145E2A10089111B /* dataCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C3ADE1145E2A10089111B /* dataCells.m */; };
 		9E7F1F4E1136381400F637CB /* cameraview.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F1F4C1136381400F637CB /* cameraview.m */; };
@@ -152,6 +153,7 @@
 		8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_request_types.xml; path = Resources/sample_request_types.xml; sourceTree = "<group>"; };
 		8475AE1B11ADFA440000A4F7 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		84F0466611AEDE8D008C0A60 /* sample_requests.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_requests.xml; path = Resources/sample_requests.xml; sourceTree = "<group>"; };
 		9E55B068115DFE7500B69B3A /* selectCatagory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selectCatagory.h; sourceTree = "<group>"; };
 		9E55B069115DFE7500B69B3A /* selectCatagory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = selectCatagory.m; sourceTree = "<group>"; };
 		9E7C3ADD1145E2A10089111B /* dataCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataCells.h; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				3739FFBE1199C05700F06E6E /* Nibs */,
 				9E80463411346B3700CF3826 /* Images */,
 				8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */,
+				84F0466611AEDE8D008C0A60 /* sample_requests.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				3739002D1199C7A000F06E6E /* viewIncident.xib in Resources */,
 				373900341199C9FF00F06E6E /* Default.png in Resources */,
 				8475ADDF11ADBF2A0000A4F7 /* sample_request_types.xml in Resources */,
+				84F0466711AEDE8D008C0A60 /* sample_requests.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

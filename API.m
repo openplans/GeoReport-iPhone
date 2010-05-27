@@ -22,6 +22,22 @@
 #import "UshahidiProjAppDelegate.h"
 #import "GDataXMLNode.h"
 
+@implementation GDataXMLNode (XMLNodeUtils)
+
+- (NSString *)firstStringByXpath:(NSString*)xpath
+{
+	// It's nice that the XML APIs are generalized to always return arrays of nodes,
+	// but dammit, sometimes we know there's just one.
+	NSString *value = @"";
+	NSArray *matches = [self nodesForXPath:xpath error:nil];
+	if ([matches count] > 0) {
+		value = [[matches objectAtIndex:0] stringValue];
+	}
+	return value;
+}
+@end
+
+
 @implementation API
 
 @synthesize endPoint;
@@ -36,6 +52,7 @@
 	app = [[UIApplication sharedApplication] delegate];
 	return self;
 }
+
 
 -(NSMutableArray *)mapLocation
 {
@@ -79,14 +96,13 @@
 	// array-of-dictionaries structure that Ushahidi returns as JSON.
     // From GeoReport's XML, we map service_code -> id, service_name -> title, description -> description.
 	for (int i = 0; i < [categoryIds count]; i++) {
-		NSLog(@"loop %d\n", i);
 		NSMutableDictionary *cat = [NSMutableDictionary dictionaryWithCapacity:3];
 		[cat setValue:[[categoryIds objectAtIndex:i] stringValue] forKey:@"id"];
 		[cat setValue:[[categoryTitles objectAtIndex:i] stringValue] forKey:@"title"];
 		[cat setValue:[[categoryDescrs objectAtIndex:i] stringValue] forKey:@"description"];
 		[categories addObject:[NSDictionary dictionaryWithObject:cat forKey:@"category"]];
 	}
-	NSLog(@"categories added: %@\n", [categories JSONFragment]);
+	NSLog(@"categoryNames returning: %@\n", [categories JSONFragment]);
 		
 	return categories;
 }
@@ -116,19 +132,40 @@
 - (NSMutableArray *)allIncidents {
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
-	NSURLResponse *response;
-	NSDictionary *results;
-	int rno = [app.reports intValue];
-	rno = 1;
-	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=incidents&by=all&limit=%d&sort=1",app.urlString,rno];
-	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
-	
-	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
+	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
+	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseXML JSONValue];
+	NSLog(@"Response: %@\n", responseXML );
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
+		
+	//incidents
+	NSArray *requestNodes = [doc nodesForXPath:@"//service_requests/request" error:nil];
 	
-	//categories
-	NSMutableArray *incidents = [[results objectForKey:@"payload"] objectForKey:@"incidents"];
+	NSMutableArray *incidents = [NSMutableArray arrayWithCapacity:[requestNodes count]]; 
+	// In order to minimize changes, we're converting our XML structure into the same
+	// array-of-dictionaries structure that Ushahidi web API returns as JSON.
+	for (int i = 0; i < [requestNodes count]; i++) {
+		GDataXMLElement *node = [requestNodes objectAtIndex:i];
+		NSMutableDictionary *inc = [[NSMutableDictionary alloc] init ];
+		[inc setValue:[node firstStringByXpath:@"./service_request_id"] forKey:@"incidentid"];
+		[inc setValue:[node firstStringByXpath:@"./service_name"] forKey:@"incidenttitle"]; // TODO: no good match in GeoReport API
+		[inc setValue:[node firstStringByXpath:@"./requested_datetime"] forKey:@"incidentdate"];
+		[inc setValue:[node firstStringByXpath:@"./description"] forKey:@"incidentdescription"];
+		[inc setValue:[node firstStringByXpath:@"./address"] forKey:@"locationname"];
+		[inc setValue:[node firstStringByXpath:@"./lat"] forKey:@"locationlatitude"];
+		[inc setValue:[node firstStringByXpath:@"./long"] forKey:@"locationlongitude"];
+		[inc setValue:@"2" forKey:@"incidentmode"];
+		[inc setValue:@"0" forKey:@"incidentverified"];
+		[inc setValue:@"0" forKey:@"incidentactive"];
+
+		[incidents addObject:[NSMutableDictionary dictionaryWithObject:inc forKey:@"incident"]];
+		[[incidents objectAtIndex:i] setValue:[[NSArray alloc] init] forKey:@"media"];
+	}
+	
+	NSLog(@"allIncidents returning: %@", [incidents JSONFragment]);
+
 	return incidents;
 }
 
