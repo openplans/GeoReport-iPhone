@@ -1,0 +1,57 @@
+<services>
+	<service>
+		<service_code >001</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>sanitation</group>
+		<service_name>Cans left out 24x7</service_name>
+		<description>Garbage or recycling cans that have been left out for more than 24 hours after collection. Violators will be cited.</description>
+	</service>
+	<service>
+		<service_code >002</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>street</group>
+		<service_name>Construction plate shifted</service_name>
+		<description>Metal construction plate covering the street or sidewalk has been moved.</description>
+	</service>
+	<service>
+		<service_code >003</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>street</group>
+		<service_name>Curb or curb ramp defect</service_name>
+		<description>Sidewalk curb or ramp has problems such as cracking, missing pieces, holes, and/or chipped curb.</description>
+	</service>
+	<service>
+		<service_code >004</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>sanitation</group>
+		<service_name>Damaged city can</service_name>
+		<description>Damage to a city garbage receptacle such as missing parts (lid, door, liner) or other physical damage.</description>
+	</service>
+	<service>
+		<service_code >005</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>sewer</group>
+		<service_name>Damaged side sewer vent cover</service_name>
+		<description>Damage to a side sewer vent cover with problems such as cracking, bending, rusting, or denting.</description>
+	</service>
+	<service>
+		<service_code >006</service_code >
+		<metadata>true</metadata>
+		<type>realtime</type>
+		<keywords>lorem, ipsum, dolor</keywords>
+		<group>tree</group>
+		<service_name>Damaged tree</service_name>
+		<description>Damage to a city maintained tree. To check whether a tree is city maintained: http://bit.ly/6hsDk1.</description>
+	</service>
+</services>
+

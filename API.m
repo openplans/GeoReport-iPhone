@@ -20,13 +20,15 @@
 
 #import "API.h"
 #import "UshahidiProjAppDelegate.h"
+#import "GDataXMLNode.h"
+
 @implementation API
 
 @synthesize endPoint;
 @synthesize errorCode;
 @synthesize errorDesc;
 @synthesize responseData;
-@synthesize responseJSON;
+@synthesize responseXML;
 
 - (id)init {
 	
@@ -45,8 +47,8 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseJSON JSONValue];
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	results = [responseXML JSONValue];
 	
 	//categories
 	NSMutableArray *mapcenters = [[results objectForKey:@"payload"] objectForKey:@"mapcenters"];
@@ -58,22 +60,40 @@
 - (NSMutableArray *)categoryNames {
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
-	NSURLResponse *response;
-	NSDictionary *results;
+	//NSURLResponse *response;
+	//NSDictionary *results;
 	
-	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=categories",app.urlString];
-	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
+	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=categories",app.urlString];
+	//NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
-	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseJSON JSONValue];
+	// responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
+	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+
+	// Ushahidi JSON looks like: {"payload": {"categories":[...]}}
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	NSLog(@"Response: %@\n", responseXML );
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 	
 	//categories
-	NSMutableArray *categories = [[results objectForKey:@"payload"] objectForKey:@"categories"];
-	//[error release];
-	//[response release];
-	//[results release];
+	NSArray *categoryIds = [doc nodesForXPath:@"//service/service_code" error:nil];
+	NSArray *categoryTitles = [doc nodesForXPath:@"//service/service_name" error:nil];
+	NSArray *categoryDescrs = [doc nodesForXPath:@"//service/description" error:nil];
 	
+	NSMutableArray *categories = [NSMutableArray arrayWithCapacity:[categoryIds count]]; 
+	// In order to minimize changes, we're converting our XML structure into the same
+	// array-of-dictionaries structure that Ushahidi returns as JSON.
+    // From GeoReport's XML, we map service_code -> id, service_name -> title, description -> description.
+	for (int i = 0; i < [categoryIds count]; i++) {
+		NSLog(@"loop %d\n", i);
+		NSMutableDictionary *cat = [NSMutableDictionary dictionaryWithCapacity:3];
+		[cat setValue:[[categoryIds objectAtIndex:i] stringValue] forKey:@"id"];
+		[cat setValue:[[categoryTitles objectAtIndex:i] stringValue] forKey:@"title"];
+		[cat setValue:[[categoryDescrs objectAtIndex:i] stringValue] forKey:@"description"];
+		[categories addObject:[NSDictionary dictionaryWithObject:cat forKey:@"category"]];
+	}
+	NSLog(@"categories added: %@\n", [categories JSONFragment]);
+		
 	return categories;
 }
 
@@ -87,8 +107,8 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseJSON JSONValue];
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	results = [responseXML JSONValue];
 	
 	//categories
 	NSMutableArray *incidents = [[results objectForKey:@"payload"] objectForKey:@"incidents"];
@@ -110,8 +130,8 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseJSON JSONValue];
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	results = [responseXML JSONValue];
 	
 	//categories
 	NSMutableArray *incidents = [[results objectForKey:@"payload"] objectForKey:@"incidents"];
@@ -155,8 +175,8 @@
 	
 	
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseJSON JSONValue];
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	results = [responseXML JSONValue];
 	
 	NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
 	//[response release];
@@ -339,7 +359,7 @@
 	[errorDesc release];
 	if(responseData != nil)
 		[responseData release];
-	[responseJSON release];
+	[responseXML release];
 	[super dealloc];
 }
 

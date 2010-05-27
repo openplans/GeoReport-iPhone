@@ -28,7 +28,7 @@
 	
 	NSData *responseData;
 	NSMutableArray *arrData;
-	NSString *responseJSON;
+	NSString *responseXML;
 	UshahidiProjAppDelegate *app;
 	NSMutableArray *arrImage;
 }
@@ -47,6 +47,6 @@
 @property (nonatomic, retain, readonly) NSString *errorCode;
 @property (nonatomic, retain, readonly) NSString *errorDesc;
 @property (nonatomic, retain, readonly) NSData *responseData;
-@property (nonatomic, retain, readonly) NSString *responseJSON;
+@property (nonatomic, retain, readonly) NSString *responseXML;
 
 @end

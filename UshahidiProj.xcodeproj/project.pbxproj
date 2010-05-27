@@ -61,6 +61,8 @@
 		3739FFC31199C09000F06E6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFC11199C09000F06E6E /* MainWindow.xib */; };
 		3739FFC41199C09000F06E6E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFC21199C09000F06E6E /* RootViewController.xib */; };
 		3739FFD71199C41300F06E6E /* UshahidiProj-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */; };
+		8475ADDF11ADBF2A0000A4F7 /* sample_request_types.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */; };
+		8475AE1D11ADFA440000A4F7 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */; };
 		9E55B06B115DFE7500B69B3A /* selectCatagory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E55B069115DFE7500B69B3A /* selectCatagory.m */; };
 		9E7C3AE01145E2A10089111B /* dataCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C3ADE1145E2A10089111B /* dataCells.m */; };
 		9E7F1F4E1136381400F637CB /* cameraview.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F1F4C1136381400F637CB /* cameraview.m */; };
@@ -147,6 +149,9 @@
 		3739FFC11199C09000F06E6E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Resources/Nibs/MainWindow.xib; sourceTree = "<group>"; };
 		3739FFC21199C09000F06E6E /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = Resources/Nibs/RootViewController.xib; sourceTree = "<group>"; };
 		3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UshahidiProj-Info.plist"; path = "Resources/UshahidiProj-Info.plist"; sourceTree = "<group>"; };
+		8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_request_types.xml; path = Resources/sample_request_types.xml; sourceTree = "<group>"; };
+		8475AE1B11ADFA440000A4F7 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		9E55B068115DFE7500B69B3A /* selectCatagory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selectCatagory.h; sourceTree = "<group>"; };
 		9E55B069115DFE7500B69B3A /* selectCatagory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = selectCatagory.m; sourceTree = "<group>"; };
 		9E7C3ADD1145E2A10089111B /* dataCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataCells.h; sourceTree = "<group>"; };
@@ -205,6 +210,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8475AE1B11ADFA440000A4F7 /* GDataXMLNode.h */,
+				8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */,
 				9E83E917116C66C5005EC5CA /* MyAnnotation.m */,
 				9E83E918116C66C5005EC5CA /* MyAnnotation.h */,
 				9E7FFA61113F74FC00DAF29C /* UIViewTouch.h */,
@@ -284,6 +291,7 @@
 				3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */,
 				3739FFBE1199C05700F06E6E /* Nibs */,
 				9E80463411346B3700CF3826 /* Images */,
+				8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -479,6 +487,7 @@
 				3739002C1199C7A000F06E6E /* syncData.xib in Resources */,
 				3739002D1199C7A000F06E6E /* viewIncident.xib in Resources */,
 				373900341199C9FF00F06E6E /* Default.png in Resources */,
+				8475ADDF11ADBF2A0000A4F7 /* sample_request_types.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +525,7 @@
 				3739FF51119905CB00F06E6E /* SBJsonBase.m in Sources */,
 				3739FF52119905CB00F06E6E /* SBJsonParser.m in Sources */,
 				3739FF53119905CB00F06E6E /* SBJsonWriter.m in Sources */,
+				8475AE1D11ADFA440000A4F7 /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +572,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "";
+				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos3.1.3]" = "";
@@ -579,7 +591,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "";
+				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "360B479F-7917-46CA-B2F5-34791D76505E";
 				"PROVISIONING_PROFILE[sdk=iphoneos3.1.3]" = "";
