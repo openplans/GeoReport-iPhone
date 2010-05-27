@@ -150,8 +150,10 @@
 		GDataXMLElement *node = [requestNodes objectAtIndex:i];
 		NSMutableDictionary *inc = [[NSMutableDictionary alloc] init ];
 		[inc setValue:[node firstStringByXpath:@"./service_request_id"] forKey:@"incidentid"];
-		[inc setValue:[node firstStringByXpath:@"./service_name"] forKey:@"incidenttitle"]; // TODO: no good match in GeoReport API
-		[inc setValue:[node firstStringByXpath:@"./requested_datetime"] forKey:@"incidentdate"];
+		[inc setValue:[node firstStringByXpath:@"./service_name"] forKey:@"incidenttitle"]; // TODO: GeoReport has no titles?
+		NSString *date = [node firstStringByXpath:@"./requested_datetime"]; // "2010-04-14T06:37:38-08:00"
+		// TODO: something downstream blows up on that date. Needs to lose the zone offset?
+		[inc setValue:@"2010-04-27 03:07:00" forKey:@"incidentdate"]; // TODO: de-hardcode this
 		[inc setValue:[node firstStringByXpath:@"./description"] forKey:@"incidentdescription"];
 		[inc setValue:[node firstStringByXpath:@"./address"] forKey:@"locationname"];
 		[inc setValue:[node firstStringByXpath:@"./lat"] forKey:@"locationlatitude"];
