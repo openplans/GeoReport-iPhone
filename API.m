@@ -58,24 +58,15 @@
 
 
 - (NSMutableArray *)categoryNames {
-	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
-	//NSURLResponse *response;
-	//NSDictionary *results;
-	
-	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=categories",app.urlString];
-	//NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
-	
-	// responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
 	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
 	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
-
-	// Ushahidi JSON looks like: {"payload": {"categories":[...]}}
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"Response: %@\n", responseXML );
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
-	
-	//categories
+
 	NSArray *categoryIds = [doc nodesForXPath:@"//service/service_code" error:nil];
 	NSArray *categoryTitles = [doc nodesForXPath:@"//service/service_name" error:nil];
 	NSArray *categoryDescrs = [doc nodesForXPath:@"//service/description" error:nil];
