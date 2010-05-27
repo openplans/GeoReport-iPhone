@@ -67,6 +67,9 @@
 	NSLog(@"Response: %@\n", responseXML );
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 
+	// We're assuming that every category has exactly one service_code, service_name, and service_description.
+	// If that's wrong, we're in trouble.
+	// Also, we're not doing anything about sorting.
 	NSArray *categoryIds = [doc nodesForXPath:@"//service/service_code" error:nil];
 	NSArray *categoryTitles = [doc nodesForXPath:@"//service/service_name" error:nil];
 	NSArray *categoryDescrs = [doc nodesForXPath:@"//service/description" error:nil];
