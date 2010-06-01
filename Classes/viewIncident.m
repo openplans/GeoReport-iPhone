@@ -288,11 +288,10 @@
 	cell.incName.text = str;
 	cell.locationName.text = [@"Location: " stringByAppendingString:[dict1 objectForKey:@"locationname"]];
 
-	// Dates. GeoReport API uses a timezone format that OSX doesn't seem to handle natively.
-	[df setDateFormat:@"yyyy-MM-dd'T'hh:mm:ssZ"];
-	// XXX MAYBE FIX slinkp
+	// Dates.
+	[df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
 	NSDate *t1 = [df dateFromString:[dict1 objectForKey:@"incidentdate"]];
-	//NSDate *t1 = [df dateFromString:@"2010-04-14T06:37:38-08:00"]; // XXX de-hardcode
+
 	[df setDateFormat:@"MM/dd/YYYY hh:mm"];
 	cell.date1.text = [@"Date: " stringByAppendingString:[df stringFromDate:t1]];
 

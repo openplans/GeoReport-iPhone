@@ -151,20 +151,8 @@
 		NSMutableDictionary *inc = [[NSMutableDictionary alloc] init ];
 		[inc setValue:[node firstStringByXpath:@"./service_request_id"] forKey:@"incidentid"];
 		[inc setValue:[node firstStringByXpath:@"./service_name"] forKey:@"incidenttitle"]; // TODO: GeoReport has no titles?
-		NSString *date = [node firstStringByXpath:@"./requested_datetime"]; // "2010-04-14T06:37:38-08:00"
-		date = @"2010-04-14T06:37:38-08:00"; // XXX de-hardcode
-		// Ugh. NSDateFormatter can't parse the w3c zone format like "-08:00", it has to be like "-0800"
-		NSLog(@"Date substr: '%@'\n", [date substringWithRange:NSMakeRange(22,1)]);
-		NSLog(@"Date is now: '%@' %d\n", date, [date length]);
-		if (([date length] == 25) && ([date substringWithRange:NSMakeRange(22,1)] == @":")) {
-			NSLog(@"got here\n");
-			date = [date stringByReplacingCharactersInRange:NSMakeRange(22,1) withString:@""]; 
-		} else {
-			NSLog(@"nope\n");
-		}
-		NSLog(@"Fixed Date is now: '%@' %d\n", date, [date length]);
-		// TODO: something downstream blows up on that date. Needs to lose the zone offset?
-		//[inc setValue:@"2010-04-27T03:07:00-0600" forKey:@"incidentdate"]; // TODO: de-hardcode this
+		NSString *date;
+		date = [node firstStringByXpath:@"./requested_datetime"]; // format is like "2010-04-14T06:37:38-08:00"
 		[inc setValue:date forKey:@"incidentdate"];
 		[inc setValue:[node firstStringByXpath:@"./description"] forKey:@"incidentdescription"];
 		[inc setValue:[node firstStringByXpath:@"./address"] forKey:@"locationname"];
