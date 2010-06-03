@@ -105,7 +105,6 @@
 	NSURLResponse *response;
 	NSDictionary *results;
 	int rno = [app.reports intValue];
-	rno = 1;
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=incidents&by=all&limit=%d&sort=1",app.urlString,rno];
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
