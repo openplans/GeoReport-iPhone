@@ -144,7 +144,7 @@
 	[arr addObject:@"Date & Time:"];
 	[arr addObject:@"Categories:"];
 	[arr addObject:@"Location:"];
-	[arr addObject:@"Photos:"];
+	//[arr addObject:@"Photos:"];
 	[arr retain];
 	
 	df = [[NSDateFormatter alloc] init];
@@ -202,7 +202,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	
-	return 5;
+	return 4; // 5 with photos
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
