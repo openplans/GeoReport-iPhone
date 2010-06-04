@@ -1,14 +1,15 @@
-# Ushahidi iPhone
+# GeoReport iPhone
 
-Ushahidi's iPhone app interacts with a web service to pull/push reports from/to an Ushahidi installation.
+This app interacts with any [GeoReport web service](http://wiki.open311.org/GeoReport_v2) 
+to pull/push reports from/to an [Open311](http://open311.org) service implementing the
+GeoReport API.
 
-* [Issue Tracker](http://dev.ushahidi.com/projects/roadmap/Ushahidi_iPhone)
-* [Web Service (API) Documentation](http://wiki.ushahidi.com/doku.php?id=ushahidi_api)
-* [About Ushahidi](http://www.ushahidi.com)
-* [Ushahidi Web Platform on github](http://github.com/ushahidi/Ushahidi_Web)
+This app is a fork of [Ushahidi's](http://www.ushahidi.com) 
+[iPhone app](http://github.com/ushahidi/Ushahidi_iPhone), which is available under the same
+license (LGPL).
 
+The customizations to work with GeoReport were developed by
+[OpenPlans](http://openplans.org)
 Your participation is welcome - feel free to fork, add missing features or [report issues](http://dev.ushahidi.com/projects/roadmap/Ushahidi_iPhone) :)
 
-![Ushahidi Iphone](http://download.ushahidi.com/mobile/iphone/ushahidi_iphone_1.jpg "Ushahidi Iphone") 
-![Ushahidi Iphone](http://download.ushahidi.com/mobile/iphone/ushahidi_iphone_2.jpg "Ushahidi Iphone") 
-![Ushahidi Iphone](http://download.ushahidi.com/mobile/iphone/ushahidi_iphone_3.jpg "Ushahidi Iphone") 
+[Source code](http://github.com/slinkp/GeoReport-iPhone)
