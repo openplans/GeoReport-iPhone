@@ -148,10 +148,6 @@
 	NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", queryURL]]];
 	[request setHTTPMethod: @"POST"];	
 	[request setHTTPBody:requestData];
-	NSData *returnData = [ NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil ];
-	NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-	results = [returnString JSONValue];
-	
 	
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
