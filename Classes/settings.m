@@ -79,7 +79,7 @@
 	tblView.delegate = self;
 	tblView.dataSource = self;
 	data = [[NSMutableArray alloc] init];
-	[data addObject:@"Ushahidi URL"];
+	[data addObject:@"API URL"];
 	[data addObject:@"First Name"];
 	[data addObject:@"Last Name"];
 	[data addObject:@"Email"];
@@ -156,7 +156,7 @@
 		{
 			url1 = cell.txt;
 			cell.txt.tag = 0;
-			[cell.txt setPlaceholder:@"example:ushahidi.com"];
+			[cell.txt setPlaceholder:@"eg: open311.sfgov.org/dev/v2/"];
 			cell.txt.text = app.urlString;
 		}
 		else if(indexPath.row == 1)
@@ -208,8 +208,8 @@
 	app.lname = @"";
 	app.emailStr = @"";
 	app.reports = @"100";
-	app.mapType = @"Google Stardard";
-	app.urlString = @"demo.ushahidi.com";
+	app.mapType = @"Google Standard";
+	app.urlString = @"https://open311.sfgov.org/dev/v2/";
 	[tblView reloadData];
 }
 
