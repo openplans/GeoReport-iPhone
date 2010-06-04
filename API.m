@@ -176,51 +176,69 @@
 	NSError *error;
 	NSURLResponse *response;
 	NSDictionary *results;
-	
-	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
-	//	//NSString *queryURL = [NSString stringWithFormat:@"http://stopstockouts.org/ushahidi/api?task=report"];
-	//	
-	//	//form the rest of the url from the dict
-	NSEnumerator *enumerator = [incidentinfo keyEnumerator];
-	id key;
-	
-	while ((key = [enumerator nextObject])) {
-		NSString *valueString = [incidentinfo objectForKey:key];
-		NSString *keyString = (NSString *)key;
+
+	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
+	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml",app.urlString];
+
+	// TODO: de-hardcode jurisdiction. The API requires us to know it a priori, ugh.
+	queryURL = [NSString stringWithFormat:@"%@?jurisdiction_id=sfgov.org", queryURL];
+
+	//form the rest of the url from the dict
+
+	NSArray *ushahidiKeys = [NSArray arrayWithObjects:
+							 @"incident_title",
+							 @"incident_category",
+							 @"person_last", @"person_first",
+							 @"person_email",
+							 @"latitude", @"longitude",
+							 @"location_name",
+							 nil];
+	NSArray *geoReportKeys = [NSArray arrayWithObjects:
+							  @"description",
+							  @"service_code",
+							  @"last_name", @"first_name",
+							  @"email",
+							  @"lat", @"long",
+							  @"address_string",
+							  nil];
+
+	for (int i=0; i < [ushahidiKeys count]; i++) {
+		NSString *valueString = [incidentinfo objectForKey:[ushahidiKeys objectAtIndex:i]];
+		NSString *keyString = [geoReportKeys objectAtIndex:i];
+		NSString *oldKey = [ushahidiKeys objectAtIndex:i];
+		NSLog(@"Setting key '%@' to value '%@', from '%@'", keyString, valueString, oldKey);
 		queryURL = [NSString stringWithFormat:@"%@&%@=%@", queryURL, [self urlEncode:keyString], [self urlEncode:valueString]];
 	}
 	
-	//	NSData *aData = [queryURL dataUsingEncoding: NSASCIIStringEncoding];
-	//	NSMutableURLRequest *request = [ [ NSMutableURLRequest alloc ] initWithURL: [ NSURL URLWithString: queryURL]]; 
-	//	[request setHTTPMethod: @"POST" ];
-	//	[request setValue:@"text/plain" forHTTPHeaderField:@"Content-type"];
-	//	[request setHTTPBody:[aData JSONFragment]];
-	
-	
 	NSString *requestString = [NSString stringWithFormat:@"%@", queryURL, nil];
+
+	// Temporarily save x-www-form-urlencoded data to log. 
+	// TODO: stand up *something* we can post this to via HTTP. SF dev service?
+	NSLog(@"Sending POST with form-encoded string: %@", requestString);
 	NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
 	NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", queryURL]]];
 	[request setHTTPMethod: @"POST"];	
 	[request setHTTPBody:requestData];
-	NSData *returnData = [ NSURLConnection sendSynchronousRequest:request returningResponse: nil error: nil ];
-	NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-	results = [returnString JSONValue];
+
+	// Response handling.
 	
+	//responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	//responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	// TODO: parse GeoReport XML response
+	//results = [responseXML JSONValue];
+	//NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
+	//NSLog(@"Response from POST new incident: %@", returnString); 	
 	
-	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseXML JSONValue];
+	NSString *success = @"true";
 	
-	NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
+	// Cleanup.
 	//[response release];
 	//[results release];
-	
+
 	if([success isEqual:@"true"])
 		return YES;
 	else
 		return NO;
-	
-	 
 }
 
 - (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
