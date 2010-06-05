@@ -137,7 +137,7 @@
 	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
 	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	NSLog(@"Response: %@\n", responseXML );
+	NSLog(@"allIncidents Response: %@\n", responseXML );
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 		
 	//incidents
@@ -222,14 +222,20 @@
 
 	// Response handling.
 	
+	// TODO: Set up a test server we can actually post this to!
 	//responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	//responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	// TODO: parse GeoReport XML response
+	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
+	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_creation_response" ofType:@"xml"];
+	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	NSLog(@"Response from POST new incident: %@", responseXML);
 	//results = [responseXML JSONValue];
 	//NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
-	//NSLog(@"Response from POST new incident: %@", returnString); 	
-	
-	NSString *success = @"true";
+
+	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
+	NSArray *errorMsgs = [doc nodesForXPath:@"//error" error:nil];
+	NSString *success = ([errorMsgs count] == 0) ? @"true" : @"false";
 	
 	// Cleanup.
 	//[response release];
@@ -237,8 +243,12 @@
 
 	if([success isEqual:@"true"])
 		return YES;
-	else
+	else {
+		for (GDataXMLElement *node in errorMsgs) {
+			NSLog(@"Error msg from service: %@", [node stringValue]);
+		};
 		return NO;
+	}
 }
 
 - (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
