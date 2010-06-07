@@ -27,6 +27,9 @@
 @synthesize obscuringView;
 
 
+// TODO. Remove all this as we don't use an animation screen anyway.
+// Except I don't know how to get rid of it and don't have time to learn. -slinkp
+
 - (void) dealloc
 {
     [super dealloc];
@@ -42,6 +45,7 @@
 {
 	[UIView beginAnimations:nil context:NULL];
 	{
+		// Setting transition time to zero as a lame way to disable the intro animation. -slinkp
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 		[UIView setAnimationDuration:0.0];
         [UIView setAnimationDelegate:self];
