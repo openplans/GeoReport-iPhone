@@ -235,6 +235,7 @@
 
 	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 	NSArray *errorMsgs = [doc nodesForXPath:@"//error" error:nil];
+	// TODO: check HTTP response status.
 	NSString *success = ([errorMsgs count] == 0) ? @"true" : @"false";
 	
 	// Cleanup.

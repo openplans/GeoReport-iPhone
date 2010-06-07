@@ -10,6 +10,11 @@ license (LGPL).
 
 The customizations to work with GeoReport were developed by
 [OpenPlans](http://openplans.org)
-Your participation is welcome - feel free to fork, add missing features or [report issues](http://dev.ushahidi.com/projects/roadmap/Ushahidi_iPhone) :)
+
+Wiki: [http://wiki.open311.org/GeoReport_iPhone](http://wiki.open311.org/GeoReport_iPhone)
+
+Discussion: [http://lists.open311.org/discuss](http://lists.open311.org/discuss)
+
+Bug tracker: [http://developer.open311.org](http://developer.open311.org)
 
 [Source code](http://github.com/slinkp/GeoReport-iPhone)
