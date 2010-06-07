@@ -53,33 +53,6 @@
 	[tv resignFirstResponder];
 	[textTitle resignFirstResponder];
 	
-	// Date Formatter to Format the Date of Incident
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];
-	NSDate *myDate = [[NSDate alloc] init];
-	myDate = [dateFormatter dateFromString:app.dt];
-	
-	// Date Formatter to Format the Date of Incident
-	NSDateFormatter *detailsTimeFormatter = [[NSDateFormatter alloc] init];
-	[detailsTimeFormatter setTimeStyle:NSDateFormatterShortStyle];
-	NSString *time = [[detailsTimeFormatter stringFromDate:myDate] lowercaseString];
-	NSRange titleResultsRange = [time rangeOfString:@"am" options:NSCaseInsensitiveSearch];
-	NSString *ampm;
-	if (titleResultsRange.length > 0)
-	{
-		ampm = @"am";
-	}
-	else
-	{
-		ampm = @"pm";
-	}
-	[dateFormatter setDateFormat:@"hh"];
-	int hour = [[dateFormatter stringFromDate:myDate] intValue];
-	
-	[dateFormatter setDateFormat:@"mm"];
-	int minute = [[dateFormatter stringFromDate:myDate] intValue];
-	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
-	NSString *dateString = [dateFormatter stringFromDate:myDate] ;
 	// Set the Data, Insert into Dictionary 
 	if([textTitle.text length]<=0 || [app.cat length]<0 || [app.lat length]<=0 || [app.lng length]<=0)
 	{
@@ -92,10 +65,6 @@
 	[tempdict setObject:@"report" forKey:@"task"];
 	[tempdict setObject:textTitle.text forKey:@"incident_title"];
 	[tempdict setObject:tv.text forKey:@"incident_description"];
-	[tempdict setObject:dateString forKey:@"incident_date"];
-	[tempdict setObject:[NSString stringWithFormat:@"%d",hour] forKey:@"incident_hour"];
-	[tempdict setObject:[NSString stringWithFormat:@"%d",minute] forKey:@"incident_minute"];
-	[tempdict setObject:ampm forKey:@"incident_ampm"];
 	[tempdict setObject:app.cat forKey:@"incident_category"];
 	[tempdict setObject:app.lat forKey:@"latitude"];
 	[tempdict setObject:app.lng forKey:@"longitude"];
@@ -141,7 +110,7 @@
 	app = [[UIApplication sharedApplication] delegate];
 	arr = [[NSMutableArray alloc] init];
 	[arr addObject:@"Title:"];
-	[arr addObject:@"Date & Time:"];
+	//[arr addObject:@"Date & Time:"];
 	[arr addObject:@"Categories:"];
 	[arr addObject:@"Location:"];
 	//[arr addObject:@"Photos:"];
@@ -202,7 +171,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	
-	return 4; // 5 with photos
+	return 3; // 5 with photos
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -237,16 +206,6 @@
 	else if(indexPath.row == 1)
 	{
 		cell.showDate.hidden = FALSE;
-		cell.showDate.text = dateStr;
-		if([app.dt length]>0)
-		{
-			cell.showDate.text = app.dt;
-		}
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
-	}
-	else if(indexPath.row == 2)
-	{
-		cell.showDate.hidden = FALSE;
 		cell.showDate.text = @"Select";
 		if([app.cat length]>0)
 		{
@@ -254,7 +213,7 @@
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
-	else if(indexPath.row == 3)
+	else if(indexPath.row == 2)
 	{
 		cell.showDate.hidden = TRUE;
 		cell.showLoc.hidden = FALSE;
@@ -277,26 +236,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-	if(indexPath.row == 3)
-	{
-		showMap *sh = [[showMap alloc] initWithNibName:@"showMap" bundle:nil];
-		[self.navigationController pushViewController:sh animated:YES];
-	}
 	if(indexPath.row == 1 )
-	{
-		dataCells *dc = [[dataCells alloc] initWithNibName:@"dataCells" bundle:nil];
-		dc.selectedQ = indexPath.row;
-		[self.navigationController pushViewController:dc animated:YES];
-	}
-	if(indexPath.row == 2 )
-	{
+	{  // Categories
 		selectCatagory *sc = [[selectCatagory alloc] initWithNibName:@"selectCatagory" bundle:nil];
 		[self.navigationController pushViewController:sc animated:YES];
 	}
-	if(indexPath.row == 4)
-	{
-		cameraview *cv = [[cameraview alloc] initWithNibName:@"cameraview" bundle:nil];
-		[self.navigationController pushViewController:cv animated:YES];
+	if(indexPath.row == 2)
+	{ // Location
+		showMap *sh = [[showMap alloc] initWithNibName:@"showMap" bundle:nil];
+		[self.navigationController pushViewController:sh animated:YES];
 	}
 }
 
