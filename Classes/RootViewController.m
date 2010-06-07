@@ -43,10 +43,10 @@
 	[UIView beginAnimations:nil context:NULL];
 	{
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-		[UIView setAnimationDuration:1.0];
+		[UIView setAnimationDuration:0.0];
         [UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(fadeAnimationDidStop:finished:context:)];
-		self.obscuringView.alpha = 1.0;
+		self.obscuringView.alpha = 0.0;
 	}
 	[UIView commitAnimations];	
 }
