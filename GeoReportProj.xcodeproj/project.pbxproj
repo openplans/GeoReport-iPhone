@@ -60,7 +60,7 @@
 		3739FF9B1199B7A700F06E6E /* ushahidi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3739FF851199B7A700F06E6E /* ushahidi.png */; };
 		3739FFC31199C09000F06E6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFC11199C09000F06E6E /* MainWindow.xib */; };
 		3739FFC41199C09000F06E6E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFC21199C09000F06E6E /* RootViewController.xib */; };
-		3739FFD71199C41300F06E6E /* UshahidiProj-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */; };
+		3739FFD71199C41300F06E6E /* GeoReportProj-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3739FFD61199C41300F06E6E /* GeoReportProj-Info.plist */; };
 		8475ADDF11ADBF2A0000A4F7 /* sample_request_types.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */; };
 		8475AE1D11ADFA440000A4F7 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */; };
 		84F0466711AEDE8D008C0A60 /* sample_requests.xml in Resources */ = {isa = PBXBuildFile; fileRef = 84F0466611AEDE8D008C0A60 /* sample_requests.xml */; };
@@ -92,7 +92,7 @@
 		1D6058910D05DD3D006BFB54 /* GeoReport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28A0AAE50D9B0CCF005BE974 /* UshahidiProj_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UshahidiProj_Prefix.pch; sourceTree = "<group>"; };
+		28A0AAE50D9B0CCF005BE974 /* GeoReportProj_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoReportProj_Prefix.pch; sourceTree = "<group>"; };
 		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		3739FF851199B7A700F06E6E /* ushahidi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ushahidi.png; path = Resources/Images/ushahidi.png; sourceTree = "<group>"; };
 		3739FFC11199C09000F06E6E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Resources/Nibs/MainWindow.xib; sourceTree = "<group>"; };
 		3739FFC21199C09000F06E6E /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = Resources/Nibs/RootViewController.xib; sourceTree = "<group>"; };
-		3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UshahidiProj-Info.plist"; path = "Resources/UshahidiProj-Info.plist"; sourceTree = "<group>"; };
+		3739FFD61199C41300F06E6E /* GeoReportProj-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GeoReportProj-Info.plist"; path = "Resources/GeoReportProj-Info.plist"; sourceTree = "<group>"; };
 		8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_request_types.xml; path = Resources/sample_request_types.xml; sourceTree = "<group>"; };
 		8475AE1B11ADFA440000A4F7 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		8475AE1C11ADFA440000A4F7 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
@@ -283,7 +283,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				28A0AAE50D9B0CCF005BE974 /* UshahidiProj_Prefix.pch */,
+				28A0AAE50D9B0CCF005BE974 /* GeoReportProj_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -294,7 +294,7 @@
 			children = (
 				84F0466611AEDE8D008C0A60 /* sample_requests.xml */,
 				8475ADDE11ADBF2A0000A4F7 /* sample_request_types.xml */,
-				3739FFD61199C41300F06E6E /* UshahidiProj-Info.plist */,
+				3739FFD61199C41300F06E6E /* GeoReportProj-Info.plist */,
 				3739FFBE1199C05700F06E6E /* Nibs */,
 				9E80463411346B3700CF3826 /* Images */,
 				CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */,
@@ -433,7 +433,7 @@
 			attributes = {
 				ORGANIZATIONNAME = OpenPlans;
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "UshahidiProj" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GeoReportProj" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -481,7 +481,7 @@
 				3739FF9B1199B7A700F06E6E /* ushahidi.png in Resources */,
 				3739FFC31199C09000F06E6E /* MainWindow.xib in Resources */,
 				3739FFC41199C09000F06E6E /* RootViewController.xib in Resources */,
-				3739FFD71199C41300F06E6E /* UshahidiProj-Info.plist in Resources */,
+				3739FFD71199C41300F06E6E /* GeoReportProj-Info.plist in Resources */,
 				373900211199C7A000F06E6E /* addIncident.xib in Resources */,
 				373900221199C7A000F06E6E /* cameraview.xib in Resources */,
 				373900231199C7A000F06E6E /* dataCells.xib in Resources */,
@@ -552,8 +552,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = UshahidiProj_Prefix.pch;
-				INFOPLIST_FILE = "Resources/UshahidiProj-Info.plist";
+				GCC_PREFIX_HEADER = GeoReportProj_Prefix.pch;
+				INFOPLIST_FILE = "Resources/GeoReportProj-Info.plist";
 				PRODUCT_NAME = GeoReport;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
@@ -567,9 +567,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = UshahidiProj_Prefix.pch;
-				INFOPLIST_FILE = "Resources/UshahidiProj-Info.plist";
-				PRODUCT_NAME = UshahidiProj;
+				GCC_PREFIX_HEADER = GeoReportProj_Prefix.pch;
+				INFOPLIST_FILE = "Resources/GeoReportProj-Info.plist";
+				PRODUCT_NAME = GeoReportProj;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Release;
@@ -624,7 +624,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "UshahidiProj" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GeoReportProj" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
