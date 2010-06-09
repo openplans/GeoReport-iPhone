@@ -45,7 +45,7 @@
 
 -(IBAction)btn_Clicked:(id)sender
 {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.ushahidi.com"]];
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://open311.org"]];
 }
 /*
 // Override to allow orientations other than the default portrait orientation.
