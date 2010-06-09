@@ -38,6 +38,7 @@
 - (NSMutableArray *)categoryNames;
 - (NSMutableArray *)incidentsByCategoryId:(int)catid;
 - (NSMutableArray *)allIncidents;
+- (NSMutableArray *)parseIncidents:(NSData *)data;
 -(NSMutableArray *)mapLocation;
 
 - (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo;

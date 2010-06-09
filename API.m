@@ -110,36 +110,39 @@
 - (NSMutableArray *)incidentsByCategoryId:(int)catid {
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
+	
 	NSURLResponse *response;
-	NSDictionary *results;
 	
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=incidents&by=catid&id=%d",app.urlString, catid];
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	
-	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseXML JSONValue];
-	
-	//categories
-	NSMutableArray *incidents = [[results objectForKey:@"payload"] objectForKey:@"incidents"];
-	//[error release];
-	//[response release];
-	//[results release];
-	
+	// responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
+	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
+	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	NSMutableArray *incidents = [self parseIncidents:responseData];
+	[incidents removeLastObject]; // TODO: remove lame simulation of getting a subset.
 	return incidents;
 }
 
 - (NSMutableArray *)allIncidents {
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
-	NSError *error;
-
 	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
 	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
 	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	return [self parseIncidents:responseData];
+	
+}
+
+- (NSMutableArray *)parseIncidents: (NSData *)data  {
+
+	NSError *error;
+
+	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:data options:0 error:&error];
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"allIncidents Response: %@\n", responseXML );
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
-		
+	
 	//incidents
 	NSArray *requestNodes = [doc nodesForXPath:@"//service_requests/request" error:nil];
 	
@@ -168,7 +171,9 @@
 	
 	NSLog(@"allIncidents returning: %@", [incidents JSONFragment]);
 
+	sleep(1); // TODO: remove this, lame network simulation
 	return incidents;
+
 }
 
 - (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
