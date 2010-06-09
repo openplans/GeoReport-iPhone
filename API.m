@@ -182,6 +182,8 @@
 	NSURLResponse *response;
 	NSDictionary *results;
 
+	[app.errors removeAllObjects];
+	
 	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml",app.urlString];
 
@@ -231,30 +233,30 @@
 	//responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	//responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_creation_response" ofType:@"xml"];
+	// Randomly simulate 'success' or 'failure'.
+	NSString *dataFilePath;
+	if (arc4random() % 2) {
+		dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_creation_response" ofType:@"xml"];
+	} else {
+		dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_error" ofType:@"xml"];
+	}
 	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"Response from POST new incident: %@", responseXML);
-	//results = [responseXML JSONValue];
-	//NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
 
 	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 	NSArray *errorMsgs = [doc nodesForXPath:@"//error" error:nil];
 	// TODO: check HTTP response status.
-	NSString *success = ([errorMsgs count] == 0) ? @"true" : @"false";
-	
+	BOOL success = ([errorMsgs count] == 0) ? YES : NO;
 	// Cleanup.
 	//[response release];
 	//[results release];
-
-	if([success isEqual:@"true"])
-		return YES;
-	else {
-		for (GDataXMLElement *node in errorMsgs) {
-			NSLog(@"Error msg from service: %@", [node stringValue]);
-		};
-		return NO;
-	}
+	for (GDataXMLElement *node in errorMsgs) {
+		NSLog(@"Error msg from service: %@", [node stringValue]);
+		[app.errors	addObject:[node stringValue]];
+	};
+	
+	return success;
 }
 
 - (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {

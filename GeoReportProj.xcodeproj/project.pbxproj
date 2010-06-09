@@ -82,6 +82,7 @@
 		9E87EDBD1169FFB500D097D3 /* settingsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E87EDBB1169FFB500D097D3 /* settingsPage.m */; };
 		9E88A5D411636735007F961E /* photosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E88A5D211636735007F961E /* photosViewController.m */; };
 		CD3BD23D11B9CD4600A0FBA7 /* sample_creation_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */; };
+		CD73B06011C0379900C5F55E /* sample_error.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD73B05F11C0379900C5F55E /* sample_error.xml */; };
 		CD9BCC7B11BFFD3500A8FC83 /* open311_logo_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9BCC7A11BFFD3500A8FC83 /* open311_logo_medium.png */; };
 /* End PBXBuildFile section */
 
@@ -191,6 +192,7 @@
 		9E88A5D111636735007F961E /* photosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = photosViewController.h; sourceTree = "<group>"; };
 		9E88A5D211636735007F961E /* photosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = photosViewController.m; sourceTree = "<group>"; };
 		CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_creation_response.xml; path = Resources/sample_creation_response.xml; sourceTree = "<group>"; };
+		CD73B05F11C0379900C5F55E /* sample_error.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_error.xml; path = Resources/sample_error.xml; sourceTree = "<group>"; };
 		CD9BCC7A11BFFD3500A8FC83 /* open311_logo_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = open311_logo_medium.png; path = Resources/Images/open311_logo_medium.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,6 +300,7 @@
 				3739FFBE1199C05700F06E6E /* Nibs */,
 				9E80463411346B3700CF3826 /* Images */,
 				CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */,
+				CD73B05F11C0379900C5F55E /* sample_error.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				84F0466711AEDE8D008C0A60 /* sample_requests.xml in Resources */,
 				CD3BD23D11B9CD4600A0FBA7 /* sample_creation_response.xml in Resources */,
 				CD9BCC7B11BFFD3500A8FC83 /* open311_logo_medium.png in Resources */,
+				CD73B06011C0379900C5F55E /* sample_error.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

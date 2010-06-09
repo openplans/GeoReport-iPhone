@@ -35,6 +35,7 @@
 	NSString *reports;
 	float tempLat,tempLng;
 	NSArray *arrCategory;
+	NSMutableArray *errors;
 	
 }
 
@@ -50,6 +51,7 @@
 @property (nonatomic, retain) NSString *reports;
 @property (nonatomic, readwrite) float tempLat,tempLng;
 @property (nonatomic, retain) NSArray *arrCategory;
+@property (nonatomic, retain) NSMutableArray *errors;
 // Definitions of Methods of Implementation
 - (NSArray *)getCategories;
 - (NSArray *)getAllIncidents;
