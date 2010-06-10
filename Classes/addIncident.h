@@ -25,7 +25,7 @@
 @interface addIncident : UIViewController <UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
 
 	IBOutlet UITextView *descriptionEditView;
-	IBOutlet UITableView *tblView;
+	IBOutlet UITableView *incidentFieldsTableView;
 	IBOutlet UIView *v1;
 	NSMutableArray *arr;
 	NSDateFormatter *df;

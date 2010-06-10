@@ -122,14 +122,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tblView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="521315149"/>
-					</object>
-					<int key="connectionID">17</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">v1</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="356211060"/>
@@ -143,6 +135,14 @@
 						<reference key="destination" ref="247479745"/>
 					</object>
 					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">incidentFieldsTableView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="521315149"/>
+					</object>
+					<int key="connectionID">23</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -236,7 +236,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">23</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -263,7 +263,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>descriptionEditView</string>
-							<string>tblView</string>
+							<string>incidentFieldsTableView</string>
 							<string>v1</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">

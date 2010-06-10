@@ -36,12 +36,12 @@
 	self.title = @"New Report";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 	self.navigationItem.backBarButtonItem.title = @"Cancel";
-	[tblView reloadData];
+	[incidentFieldsTableView reloadData];
 }
 
 -(void) done_Clicked
 {
-	[tblView setContentOffset:CGPointMake(0, 0)];
+	[incidentFieldsTableView setContentOffset:CGPointMake(0, 0)];
 	[descriptionEditView resignFirstResponder];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 
@@ -91,7 +91,7 @@
 			app.cat = @"";
 			app.lat = @"";
 			app.lng = @"";
-			[tblView reloadData];		
+			[incidentFieldsTableView reloadData];		
 		} else {
 			for (NSString *err in app.errors) {
 				[alert setMessage:[[alert message] stringByAppendingString:err]];
@@ -107,8 +107,8 @@
    
 	descriptionEditView.delegate = self;
 	textTitle.delegate = self;
-	tblView.delegate = self;
-	tblView.dataSource = self;
+	incidentFieldsTableView.delegate = self;
+	incidentFieldsTableView.dataSource = self;
 	descriptionEditView.layer.cornerRadius = 10.0;
 	// TODO: want some placeholder on the description field, or a label or something.
 	// Look at http://github.com/facebook/three20 which provides a suitable subclass,
@@ -153,7 +153,7 @@
 {   
 	// Scroll down to show just the text view.
 	 // TODO: figure out how to de-hardcode the amount to scroll
-	[tblView setContentOffset:CGPointMake(0, 110)];
+	[incidentFieldsTableView setContentOffset:CGPointMake(0, 110)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done_Clicked)];
 	return YES;
 }
@@ -198,7 +198,7 @@
         cell = [[[CustomCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	tblView.tableFooterView = v1;  // TODO: what is this? nothing?
+	incidentFieldsTableView.tableFooterView = v1;  // TODO: what is this? nothing?
 	// Configure the cell.
 	cell.add_Label.text = [arr objectAtIndex:indexPath.row];
 	cell.add_Label.hidden = FALSE;
