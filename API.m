@@ -191,7 +191,8 @@
 	queryURL = [NSString stringWithFormat:@"%@?jurisdiction_id=sfgov.org", queryURL];
 
 	//form the rest of the url from the dict
-
+	// by mapping from our internal legacy ushahidi dictionary keys
+	// to GeoReport API fields.
 	NSArray *ushahidiKeys = [NSArray arrayWithObjects:
 							 @"incident_title",
 							 @"incident_category",
@@ -252,6 +253,7 @@
 	//[response release];
 	//[results release];
 	for (GDataXMLElement *node in errorMsgs) {
+		// TODO: actually it looks like the API is only ever expected to return 1 error?
 		NSLog(@"Error msg from service: %@", [node stringValue]);
 		[app.errors	addObject:[node stringValue]];
 	};
