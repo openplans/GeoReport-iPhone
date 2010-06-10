@@ -19,11 +19,12 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+
 // Forward Class Declararion
 @class UshahidiProjAppDelegate;
 @interface addIncident : UIViewController <UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
 
-	IBOutlet UITextView *tv;
+	IBOutlet UITextView *descriptionEditView;
 	IBOutlet UITableView *tblView;
 	IBOutlet UIView *v1;
 	NSMutableArray *arr;

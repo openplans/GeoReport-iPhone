@@ -42,7 +42,7 @@
 -(void) done_Clicked
 {
 	[tblView setContentOffset:CGPointMake(0, 0)];
-	[tv resignFirstResponder];
+	[descriptionEditView resignFirstResponder];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 
 }
@@ -50,7 +50,7 @@
 {
 	
 	// Resign the KeyBoard
-	[tv resignFirstResponder];
+	[descriptionEditView resignFirstResponder];
 	[textTitle resignFirstResponder];
 	
 	// Set the Data, Insert into Dictionary 
@@ -61,56 +61,59 @@
 	} 
 	else {
 		
-	NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
-	[tempdict setObject:@"report" forKey:@"task"];
-	[tempdict setObject:textTitle.text forKey:@"incident_title"];
-	[tempdict setObject:tv.text forKey:@"incident_description"];
-	[tempdict setObject:app.cat forKey:@"incident_category"];
-	[tempdict setObject:app.lat forKey:@"latitude"];
-	[tempdict setObject:app.lng forKey:@"longitude"];
-	[tempdict setObject:@"India" forKey:@"location_name"];
-	[tempdict setObject:app.fname forKey:@"person_first"];
-	[tempdict setObject:app.lname forKey:@"person_last"];
-	[tempdict setObject:app.emailStr forKey:@"person_email"];
-	[tempdict setObject:@"json" forKey:@"resp"];
-	//NSData *data = UIImageJPEGRepresentation(img1, 90);
-//	[tempdict setObject:data forKey:@"incident_photo"];
-	// Post the Data to Server
-	
-	BOOL y;
-	if([app.imgArray count]>0 ) {
-		y = [app postDataWithImage:tempdict];
-	} else {
-		y = [app postData:tempdict];
-	}
-	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
-	if (y){
-		[alert setTitle:@"Reported!"];
-		textTitle.text = @"";
-		tv.text = @"";
-		app.cat = @"";
-		app.lat = @"";
-		app.lng = @"";
-		[tblView reloadData];		
-	} else {
-		for (NSString *err in app.errors) {
-			[alert setMessage:[[alert message] stringByAppendingString:err]];
+		NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
+		[tempdict setObject:@"report" forKey:@"task"];
+		//[tempdict setObject:textTitle.text forKey:@"incident_title"];
+		[tempdict setObject:descriptionEditView.text forKey:@"incident_description"];
+		[tempdict setObject:app.cat forKey:@"incident_category"];
+		[tempdict setObject:app.lat forKey:@"latitude"];
+		[tempdict setObject:app.lng forKey:@"longitude"];
+		[tempdict setObject:@"India" forKey:@"location_name"];
+		[tempdict setObject:app.fname forKey:@"person_first"];
+		[tempdict setObject:app.lname forKey:@"person_last"];
+		[tempdict setObject:app.emailStr forKey:@"person_email"];
+		[tempdict setObject:@"json" forKey:@"resp"];
+		//NSData *data = UIImageJPEGRepresentation(img1, 90);
+		//	[tempdict setObject:data forKey:@"incident_photo"];
+		// Post the Data to Server
+		
+		BOOL y;
+		if([app.imgArray count]>0 ) {
+			y = [app postDataWithImage:tempdict];
+		} else {
+			y = [app postData:tempdict];
 		}
-		[alert setTitle:@"Error!"];
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		if (y){
+			[alert setTitle:@"Reported!"];
+			textTitle.text = @"";
+			descriptionEditView.text = @"";
+			app.cat = @"";
+			app.lat = @"";
+			app.lng = @"";
+			[tblView reloadData];		
+		} else {
+			for (NSString *err in app.errors) {
+				[alert setMessage:[[alert message] stringByAppendingString:err]];
+			}
+			[alert setTitle:@"Error!"];
+		}
+		[alert show];		
 	}
-	[alert show];		
-  }
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
    
-	tv.delegate = self;
+	descriptionEditView.delegate = self;
 	textTitle.delegate = self;
 	tblView.delegate = self;
 	tblView.dataSource = self;
-	tv.layer.cornerRadius = 10.0;
-	
+	descriptionEditView.layer.cornerRadius = 10.0;
+	// TODO: want some placeholder on the description field, or a label or something.
+	// Look at http://github.com/facebook/three20 which provides a suitable subclass,
+	// plus some other things we'll want like HTTP caching.
+	//[descriptionEditView setPlaceholder:@"Required or something"];
 	app = [[UIApplication sharedApplication] delegate];
 	arr = [[NSMutableArray alloc] init];
 	[arr addObject:@"Title:"];
@@ -147,15 +150,17 @@
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-	[tblView setContentOffset:CGPointMake(0, 180)];
+{   
+	// Scroll down to show just the text view.
+	 // TODO: figure out how to de-hardcode the amount to scroll
+	[tblView setContentOffset:CGPointMake(0, 110)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done_Clicked)];
 	return YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-	[tv resignFirstResponder];
+	[descriptionEditView resignFirstResponder];
 }
 
 /*
@@ -193,7 +198,7 @@
         cell = [[[CustomCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	tblView.tableFooterView = v1;
+	tblView.tableFooterView = v1;  // TODO: what is this? nothing?
 	// Configure the cell.
 	cell.add_Label.text = [arr objectAtIndex:indexPath.row];
 	cell.add_Label.hidden = FALSE;

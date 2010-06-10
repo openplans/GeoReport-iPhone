@@ -560,6 +560,7 @@
 				INFOPLIST_FILE = "Resources/GeoReportProj-Info.plist";
 				PRODUCT_NAME = GeoReport;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
