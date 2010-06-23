@@ -265,7 +265,7 @@
 	{
 		cell.showDate.hidden = TRUE;
 		cell.showLoc.hidden = FALSE;
-		cell.showDate.text = @"Select";
+		cell.showLoc.text = @"Select";
 		if([app.lat length] > 0)
 		{
 			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.lat,app.lng];
