@@ -58,7 +58,10 @@
 
 - (void) fadeAnimationDidStop:(NSString*) animationID finished:(NSNumber*) finished context:(void*) context
 {
+	// It's not clear to me why this root UINavigationController even exists.
+	// Why don't we just use the TabbarController directly?
 	TabbarController *tabbar=[[TabbarController alloc] init];
+	
 	[self.navigationController pushViewController:tabbar animated:NO];
 	
 	[self.obscuringView removeFromSuperview];
