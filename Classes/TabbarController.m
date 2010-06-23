@@ -71,6 +71,13 @@
 	NSArray *controllers=[NSArray arrayWithObjects:nav1,nav2,nav3,nav4,nil];
 	self.viewControllers = controllers;
 //	[controllers release];
+	
+	// Restore last viewed tab, if any. (If unset, integerForKey returns 0.)
+	NSInteger lastIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"tabBarIndex"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	self.selectedIndex = lastIndex;
+	
+	
 }
 
 /*
