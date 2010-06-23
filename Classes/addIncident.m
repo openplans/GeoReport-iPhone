@@ -46,6 +46,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 
 }
+
 -(void) save_data
 {
 	
@@ -57,7 +58,7 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];
 	NSDate *myDate = [[NSDate alloc] init];
-	myDate = [dateFormatter dateFromString:app.dt];
+	myDate = [dateFormatter dateFromString:app.newIncident.datetime];
 	
 	// Date Formatter to Format the Date of Incident
 	NSDateFormatter *detailsTimeFormatter = [[NSDateFormatter alloc] init];
@@ -81,7 +82,7 @@
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
 	NSString *dateString = [dateFormatter stringFromDate:myDate] ;
 	// Set the Data, Insert into Dictionary 
-	if([textTitle.text length]<=0 || [app.cat length]<0 || [app.lat length]<=0 || [app.lng length]<=0)
+	if([textTitle.text length]<=0 || [app.newIncident.cat length]<0 || [app.newIncident.lat length]<=0 || [app.newIncident.lng length]<=0)
 	{
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
 		[alert show];
@@ -95,9 +96,9 @@
 		[tempdict setObject:[NSString stringWithFormat:@"%d",hour] forKey:@"incident_hour"];
 		[tempdict setObject:[NSString stringWithFormat:@"%d",minute] forKey:@"incident_minute"];
 		[tempdict setObject:ampm forKey:@"incident_ampm"];
-		[tempdict setObject:app.cat forKey:@"incident_category"];
-		[tempdict setObject:app.lat forKey:@"latitude"];
-		[tempdict setObject:app.lng forKey:@"longitude"];
+		[tempdict setObject:app.newIncident.cat forKey:@"incident_category"];
+		[tempdict setObject:app.newIncident.lat forKey:@"latitude"];
+		[tempdict setObject:app.newIncident.lng forKey:@"longitude"];
 		[tempdict setObject:@"India" forKey:@"location_name"];
 		[tempdict setObject:app.fname forKey:@"person_first"];
 		[tempdict setObject:app.lname forKey:@"person_last"];
@@ -123,9 +124,9 @@
 			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			tv.text = @"";
-			app.cat =@"";
-			app.lat = @"";
-			app.lng = @"";
+			app.newIncident.cat =@"";
+			app.newIncident.lat = @"";
+			app.newIncident.lng = @"";
 			[tblView reloadData];		
 		}
 		else
@@ -159,7 +160,7 @@
 	NSDate *dt = [NSDate date];
 	dateStr = [NSString stringWithFormat:@"%@",[df stringFromDate:dt]];
 	[dateStr retain];
-	app.dt = dateStr;
+	app.newIncident.datetime = dateStr;
 	[super viewDidLoad];
 }
 
@@ -245,9 +246,9 @@
 	{
 		cell.showDate.hidden = FALSE;
 		cell.showDate.text = dateStr;
-		if([app.dt length]>0)
+		if([app.newIncident.datetime length]>0)
 		{
-			cell.showDate.text = app.dt;
+			cell.showDate.text = app.newIncident.datetime;
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
@@ -255,9 +256,9 @@
 	{
 		cell.showDate.hidden = FALSE;
 		cell.showDate.text = @"Select";
-		if([app.cat length]>0)
+		if([app.newIncident.cat length]>0)
 		{
-			cell.showDate.text = app.cat;
+			cell.showDate.text = app.newIncident.cat;
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
@@ -266,9 +267,9 @@
 		cell.showDate.hidden = TRUE;
 		cell.showLoc.hidden = FALSE;
 		cell.showLoc.text = @"Select";
-		if([app.lat length] > 0)
+		if([app.newIncident.lat length] > 0)
 		{
-			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.lat,app.lng];
+			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.newIncident.lat,app.newIncident.lng];
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}

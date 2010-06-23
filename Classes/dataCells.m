@@ -36,8 +36,8 @@
 
 -(void)done_Clicked
 {
-	app.dt = txt.text;
-	[app.dt retain];
+	app.newIncident.datetime = txt.text;
+	[app.newIncident.datetime retain];
 	
 	[self.navigationController popViewControllerAnimated:YES];
 }

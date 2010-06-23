@@ -20,6 +20,7 @@
 
 #import "UshahidiProjAppDelegate.h"
 #import "RootViewController.h"
+#import "IncidentModel.h"
 #import "API.h"
 #import <MapKit/MapKit.h>
 
@@ -27,8 +28,8 @@
 
 @synthesize window;
 @synthesize navigationController,urlString,fname,lname,emailStr,mapView;
-@synthesize dt,cat,lat,lng;
 @synthesize incidentArray,imgArray,reports,mapType,mapArray,tempLat,tempLng,arrCategory;
+@synthesize newIncident;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -41,6 +42,7 @@
 	reports = @"100";
 	mapType = @"Google Stardard";
 	urlString = @"demo.ushahidi.com";
+
 	[mapType retain];
 	[urlString retain];
 	
@@ -56,7 +58,7 @@
 	}
 
 	// Override point for customization after app launch
-	// TODO: load saved incident draft from disk, if any.	
+	newIncident = [IncidentModel loadDraftOrCreateNew];
 	instanceAPI = [[API alloc] init];
 	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 	mapView.showsUserLocation = YES;
@@ -83,8 +85,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Save data if appropriate
 
-	// TO DO: save incident info as a draft. this is app.cat, app.lat, app.lng et al.
-
+	[newIncident saveDraft];
+	
 	// Remember which tab the UI was last displaying.
 	// (This is restored in TabbarController.m, because AFAICT
 	// we have no access to the tabbar yet when applicationDidFinishLaunching

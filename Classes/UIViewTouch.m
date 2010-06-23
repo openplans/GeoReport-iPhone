@@ -36,8 +36,8 @@
 	NSLog(@"%f,%f",loc.latitude,loc.longitude);
 	
 	//Latitude and Longitude from the Location
-	app.lat = [NSString stringWithFormat:@"%f",loc.latitude];
-	app.lng = [NSString stringWithFormat:@"%f",loc.longitude];
+	app.newIncident.lat = [NSString stringWithFormat:@"%f",loc.latitude];
+	app.newIncident.lng = [NSString stringWithFormat:@"%f",loc.longitude];
     MyAnnotation *ann = [[MyAnnotation alloc] init];
 	ann.coordinate = loc;
 	[app.mapView addAnnotation:ann];
