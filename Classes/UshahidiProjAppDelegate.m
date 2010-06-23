@@ -57,7 +57,8 @@
 		lname = [st objectForKey:@"lname"];
 	}
 
-	// Override point for customization after app launch    
+	// Override point for customization after app launch
+	// TODO: load saved incident draft from disk, if any.	
 	instanceAPI = [[API alloc] init];
 	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 	mapView.showsUserLocation = YES;
@@ -66,7 +67,7 @@
 	imgArray = [[NSMutableArray alloc] init];
 	arrCategory = [[NSMutableArray alloc] init];
 	[window addSubview:[navigationController view]];
-    [window makeKeyAndVisible];
+	[window makeKeyAndVisible];	
 }
 
 -(void) showUser
@@ -83,6 +84,17 @@
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Save data if appropriate
+
+	// TO DO: save incident info as a draft. this is app.cat, app.lat, app.lng et al.
+
+	// Remember which tab the UI was last displaying.
+	// (This is restored in TabbarController.m, because AFAICT
+	// we have no access to the tabbar yet when applicationDidFinishLaunching
+	// is called.)
+	// Based on http://stackoverflow.com/questions/692979/how-do-i-save-current-tab-bar-item-when-user-quits-and-reload-to-that-item-when-r/3098745#3098745
+	UITabBarController* tabBarController = [navigationController topViewController];
+    [[NSUserDefaults standardUserDefaults] setInteger:[tabBarController	selectedIndex] 
+											   forKey:@"tabBarIndex"];
 }
 
 -(NSArray *)getMapCentre
