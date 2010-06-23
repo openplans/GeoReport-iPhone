@@ -94,14 +94,15 @@
 			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			descriptionEditView.text = @"";
-			app.cat =@"";
+			app.cat = @"";
 			app.lat = @"";
 			app.lng = @"";
 			[incidentFieldsTableView reloadData];
 			// TODO: remove any saved draft data here?
 		}
 		else
-		  { // XXX TITLE
+		{
+			[alert setTitle:@"Failed to report!"];
 			[alert setMessage:errorMsg];
 		}
 		[alert show];
@@ -232,7 +233,7 @@
 	{
 		cell.showDate.hidden = TRUE;
 		cell.showLoc.hidden = FALSE;
-		cell.showDate.text = @"Select";
+		cell.showLoc.text = @"Select";
 		if([app.lat length] > 0)
 		{
 			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.lat,app.lng];
