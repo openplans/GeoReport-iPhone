@@ -107,11 +107,11 @@
 	return [instanceAPI allIncidents];
 }
 
--(BOOL)postData:(NSMutableDictionary *)dict
+-(NSString *)postData:(NSMutableDictionary *)dict
 {
 	return [instanceAPI postIncidentWithDictionary:dict];
 }
--(BOOL)postDataWithImage:(NSMutableDictionary *)dict
+-(NSString *)postDataWithImage:(NSMutableDictionary *)dict
 {
 	return [instanceAPI postIncidentWithDictionaryWithPhoto:dict];
 }

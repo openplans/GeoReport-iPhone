@@ -38,10 +38,9 @@
 - (NSMutableArray *)allIncidents;
 -(NSMutableArray *)mapLocation;
 
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo;
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo andPhotoDataDictionary:(NSMutableDictionary *) photoData;
+- (NSString *)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo;
 - (NSString *)urlEncode:(NSString *)string;
-- (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo;
+- (NSString *)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo;
 
 @property (nonatomic, retain) NSString *endPoint;
 @property (nonatomic, retain, readonly) NSString *errorCode;

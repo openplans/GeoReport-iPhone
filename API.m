@@ -117,7 +117,9 @@
 	return incidents;
 }
 
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
+- (NSString*)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
+	// Returns an error message string, empty if successful.
+	
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
 	NSURLResponse *response;
@@ -152,20 +154,22 @@
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	responseJSON = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	results = [responseJSON JSONValue];
+	NSLog(@"Got response from posting: %@", responseJSON);
 	
 	NSString *success = (NSString *)[[results objectForKey:@"payload"] objectForKey:@"success"];
 	//[response release];
 	//[results release];
 	
 	if([success isEqual:@"true"])
-		return YES;
-	else
-		return NO;
-	
+		return @"";
+	else {
+		return [[results objectForKey:@"error"] objectForKey:@"message"];
+	}
 	 
 }
 
-- (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
+- (NSString*)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
+	// Returns an error message string, empty if successful.
 	
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
 	//NSURL *nsurl = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
@@ -313,14 +317,11 @@
 	//[results release];
 		
 		if([success isEqual:@"true"])
-			return YES;
-		else
-			return NO;
-	
+			return @"";
+		else {
+			return [[results objectForKey:@"error"] objectForKey:@"message"];
+		}
 
-}
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo andPhotoDataDictionary:(NSMutableDictionary *) photoData {
-	return NO;
 }
 
 - (NSString *)urlEncode:(NSString *)string {

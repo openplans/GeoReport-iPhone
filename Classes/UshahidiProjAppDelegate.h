@@ -54,8 +54,8 @@
 - (NSArray *)getCategories;
 - (NSArray *)getAllIncidents;
 -(NSArray *)getMapCentre;
--(BOOL)postData:(NSMutableDictionary *)dict;
--(BOOL)postDataWithImage:(NSMutableDictionary *)dict;
+-(NSString *)postData:(NSMutableDictionary *)dict;
+-(NSString *)postDataWithImage:(NSMutableDictionary *)dict;
 
 - (NSArray *)getCategoriesByid:(int)catid;
 

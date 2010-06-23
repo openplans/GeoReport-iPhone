@@ -107,18 +107,20 @@
 		//	[tempdict setObject:data forKey:@"incident_photo"];
 
 		// Post the Data to Server
-		BOOL y;
+		NSString *errorMsg;
 		if([app.imgArray count]>0 )
 		{
-			y = [app postDataWithImage:tempdict];
+			errorMsg = [app postDataWithImage:tempdict];
 		}
 		else 
 		{
-			y = [app postData:tempdict];
+			errorMsg = [app postData:tempdict];
 		}
 
-		if(y)
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];	
+		if( errorMsg == @"")
 		{
+			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			tv.text = @"";
 			app.cat =@"";
@@ -126,6 +128,11 @@
 			app.lng = @"";
 			[tblView reloadData];		
 		}
+		else
+		{
+			[alert setMessage:errorMsg];
+		}
+		[alert show];
 	}
 }
 
