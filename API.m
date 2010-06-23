@@ -176,13 +176,13 @@
 
 }
 
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
+- (NSString*)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
+	// Returns an error message string, empty if successful.
+	
 	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
 	NSURLResponse *response;
 	NSDictionary *results;
-
-	[app.errors removeAllObjects];
 	
 	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml",app.urlString];
@@ -250,18 +250,24 @@
 	// TODO: check HTTP response status.
 	BOOL success = ([errorMsgs count] == 0) ? YES : NO;
 	// Cleanup.
+
 	//[response release];
 	//[results release];
-	for (GDataXMLElement *node in errorMsgs) {
-		// TODO: actually it looks like the API is only ever expected to return 1 error?
-		NSLog(@"Error msg from service: %@", [node stringValue]);
-		[app.errors	addObject:[node stringValue]];
-	};
 	
-	return success;
+	NSString *errorMsg = @"";
+	if (! success ) {
+		for (GDataXMLElement *node in errorMsgs) {
+			errorMsg = [errorMsg stringByAppendingString:[node stringValue]];
+		}
+		NSLog(@"Error msg from service: %@", errorMsg);
+	}
+
+	return errorMsg;	 
+
 }
 
-- (BOOL)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
+- (NSString*)postIncidentWithDictionaryWithPhoto:(NSMutableDictionary *)incidentinfo {
+	// Returns an error message string, empty if successful.
 	
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
 	//NSURL *nsurl = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
@@ -409,14 +415,11 @@
 	//[results release];
 		
 		if([success isEqual:@"true"])
-			return YES;
-		else
-			return NO;
-	
+			return @"";
+		else {
+			return [[results objectForKey:@"error"] objectForKey:@"message"];
+		}
 
-}
-- (BOOL)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo andPhotoDataDictionary:(NSMutableDictionary *) photoData {
-	return NO;
 }
 
 - (NSString *)urlEncode:(NSString *)string {

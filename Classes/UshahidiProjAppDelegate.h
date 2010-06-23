@@ -35,7 +35,6 @@
 	NSString *reports;
 	float tempLat,tempLng;
 	NSArray *arrCategory;
-	NSMutableArray *errors;
 	
 }
 
@@ -56,8 +55,8 @@
 - (NSArray *)getCategories;
 - (NSArray *)getAllIncidents;
 -(NSArray *)getMapCentre;
--(BOOL)postData:(NSMutableDictionary *)dict;
--(BOOL)postDataWithImage:(NSMutableDictionary *)dict;
+-(NSString *)postData:(NSMutableDictionary *)dict;
+-(NSString *)postDataWithImage:(NSMutableDictionary *)dict;
 
 - (NSArray *)getCategoriesByid:(int)catid;
 

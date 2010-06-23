@@ -29,7 +29,6 @@
 @synthesize navigationController,urlString,fname,lname,emailStr,mapView;
 @synthesize dt,cat,lat,lng;
 @synthesize incidentArray,imgArray,reports,mapType,mapArray,tempLat,tempLng,arrCategory;
-@synthesize errors;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -42,7 +41,6 @@
 	reports = @"100";
 	mapType = @"Google Stardard";
 	urlString = @"demo.ushahidi.com";
-	errors = [[NSMutableArray alloc] init];	
 	[mapType retain];
 	[urlString retain];
 	
@@ -109,11 +107,11 @@
 	return [instanceAPI allIncidents];
 }
 
--(BOOL)postData:(NSMutableDictionary *)dict
+-(NSString *)postData:(NSMutableDictionary *)dict
 {
 	return [instanceAPI postIncidentWithDictionary:dict];
 }
--(BOOL)postDataWithImage:(NSMutableDictionary *)dict
+-(NSString *)postDataWithImage:(NSMutableDictionary *)dict
 {
 	return [instanceAPI postIncidentWithDictionaryWithPhoto:dict];
 }

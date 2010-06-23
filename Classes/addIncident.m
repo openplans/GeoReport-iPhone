@@ -59,6 +59,7 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
 		[alert show];
 	} 
+
 	else {
 		
 		NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
@@ -77,29 +78,33 @@
 		//	[tempdict setObject:data forKey:@"incident_photo"];
 
 		// Post the Data to Server
-		BOOL y;
-		if([app.imgArray count]>0 ) {
-			y = [app postDataWithImage:tempdict];
-		} else {
-			y = [app postData:tempdict];
+		NSString *errorMsg;
+		if([app.imgArray count]>0 )
+		{
+			errorMsg = [app postDataWithImage:tempdict];
 		}
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
-		if (y){
+		else 
+		{
+			errorMsg = [app postData:tempdict];
+		}
+
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];	
+		if( errorMsg == @"")
+		{
 			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			descriptionEditView.text = @"";
-			app.cat = @"";
+			app.cat =@"";
 			app.lat = @"";
 			app.lng = @"";
 			[incidentFieldsTableView reloadData];
 			// TODO: remove any saved draft data here?
-		} else {
-			for (NSString *err in app.errors) {
-				[alert setMessage:[[alert message] stringByAppendingString:err]];
-			}
-			[alert setTitle:@"Error!"];
 		}
-		[alert show];		
+		else
+		  { // XXX TITLE
+			[alert setMessage:errorMsg];
+		}
+		[alert show];
 	}
 }
 
