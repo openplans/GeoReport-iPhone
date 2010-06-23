@@ -211,9 +211,9 @@
 							  nil];
 
 	for (int i=0; i < [ushahidiKeys count]; i++) {
-		NSString *valueString = [incidentinfo objectForKey:[ushahidiKeys objectAtIndex:i]];
-		NSString *keyString = [geoReportKeys objectAtIndex:i];
 		NSString *oldKey = [ushahidiKeys objectAtIndex:i];
+		NSString *valueString = [incidentinfo objectForKey:oldKey];
+		NSString *keyString = [geoReportKeys objectAtIndex:i];
 		NSLog(@"Setting key '%@' to value '%@', from '%@'", keyString, valueString, oldKey);
 		queryURL = [NSString stringWithFormat:@"%@&%@=%@", queryURL, [self urlEncode:keyString], [self urlEncode:valueString]];
 	}
