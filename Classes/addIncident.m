@@ -86,28 +86,27 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
 		[alert show];
 	} 
-	else {
-		
-	NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
-	[tempdict setObject:@"report" forKey:@"task"];
-	[tempdict setObject:textTitle.text forKey:@"incident_title"];
-	[tempdict setObject:tv.text forKey:@"incident_description"];
-	[tempdict setObject:dateString forKey:@"incident_date"];
-	[tempdict setObject:[NSString stringWithFormat:@"%d",hour] forKey:@"incident_hour"];
-	[tempdict setObject:[NSString stringWithFormat:@"%d",minute] forKey:@"incident_minute"];
-	[tempdict setObject:ampm forKey:@"incident_ampm"];
-	[tempdict setObject:app.cat forKey:@"incident_category"];
-	[tempdict setObject:app.lat forKey:@"latitude"];
-	[tempdict setObject:app.lng forKey:@"longitude"];
-	[tempdict setObject:@"India" forKey:@"location_name"];
-	[tempdict setObject:app.fname forKey:@"person_first"];
-	[tempdict setObject:app.lname forKey:@"person_last"];
-	[tempdict setObject:app.emailStr forKey:@"person_email"];
-	[tempdict setObject:@"json" forKey:@"resp"];
-	//NSData *data = UIImageJPEGRepresentation(img1, 90);
-//	[tempdict setObject:data forKey:@"incident_photo"];
-	// Post the Data to Server
-	
+	else {		
+		NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
+		[tempdict setObject:@"report" forKey:@"task"];
+		[tempdict setObject:textTitle.text forKey:@"incident_title"];
+		[tempdict setObject:tv.text forKey:@"incident_description"];
+		[tempdict setObject:dateString forKey:@"incident_date"];
+		[tempdict setObject:[NSString stringWithFormat:@"%d",hour] forKey:@"incident_hour"];
+		[tempdict setObject:[NSString stringWithFormat:@"%d",minute] forKey:@"incident_minute"];
+		[tempdict setObject:ampm forKey:@"incident_ampm"];
+		[tempdict setObject:app.cat forKey:@"incident_category"];
+		[tempdict setObject:app.lat forKey:@"latitude"];
+		[tempdict setObject:app.lng forKey:@"longitude"];
+		[tempdict setObject:@"India" forKey:@"location_name"];
+		[tempdict setObject:app.fname forKey:@"person_first"];
+		[tempdict setObject:app.lname forKey:@"person_last"];
+		[tempdict setObject:app.emailStr forKey:@"person_email"];
+		[tempdict setObject:@"json" forKey:@"resp"];
+		//NSData *data = UIImageJPEGRepresentation(img1, 90);
+		//	[tempdict setObject:data forKey:@"incident_photo"];
+
+		// Post the Data to Server
 		BOOL y;
 		if([app.imgArray count]>0 )
 		{
@@ -117,16 +116,17 @@
 		{
 			y = [app postData:tempdict];
 		}
-	if(y)
-	{
-		textTitle.text = @"";
-		tv.text = @"";
-		app.cat =@"";
-		app.lat = @"";
-		app.lng = @"";
-		[tblView reloadData];		
+
+		if(y)
+		{
+			textTitle.text = @"";
+			tv.text = @"";
+			app.cat =@"";
+			app.lat = @"";
+			app.lng = @"";
+			[tblView reloadData];		
+		}
 	}
-  }
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
