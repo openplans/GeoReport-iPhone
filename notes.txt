@@ -1,0 +1,34 @@
+
+App Loading & Navigation
+=========================
+
+Classes/RootViewController.m is the first view controller loaded when
+the app starts. It displays the loading screen and loads the navigation
+view controller, which is...
+
+Classes/TabbarController.m implements a UITabBarController as per
+http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UITabBarController_Class/Reference/Reference.html#//apple_ref/occ/cl/UITabBarController .
+Its .viewControllers property is an array of the view controllers for
+each screen in the UI.
+
+Data Model
+===========
+
+For the most part, an incident's data is represented as an NSDictionary.
+This is probably somewhat because Ushahidi's API uses JSON, so it's easy
+to convert to/from an NSDictionary.
+
+The exception is when creating a new incident.
+Its data is stored directly as attributes of the 
+UshahidiProjAppDelegate. Dunno why. In order to post an incident
+to the server, we first populate a dictionary from these attributes,
+then pass that to the API class.
+
+
+TO DO
+=====
+
+Save state on app unload:
+  - implement this in UShahidiProjAppDelegate: applicationWillTerminate
+
+
