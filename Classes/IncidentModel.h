@@ -19,18 +19,24 @@
 
 
 @interface IncidentModel : NSObject {
-	NSString *datetime,*cat,*lat,*lng;
+	NSString *cat,*lat,*lng;
+	NSDate *datetime;
 	NSString *fname,*lname,*emailStr;
 }
 
-@property (nonatomic,retain) NSString *datetime,*cat,*lat,*lng;
+
+@property (nonatomic,retain) NSString *cat,*lat,*lng;
 @property (nonatomic,retain) NSString *fname,*lname,*emailStr;
+@property (nonatomic,retain) NSDate *datetime;
 
 // Class methods.
 +(IncidentModel *) loadDraftOrCreateNew;
 
 // Instance methods.
 -(BOOL) saveDraft;
-
+-(BOOL) updateFromDictionary:(NSMutableDictionary *)dict;
+-(NSMutableDictionary *) toDictionary;
+-(BOOL) setDateFromString:(NSString *)dateString withFormat:(NSString *)dateFormat;
+	
 @end
 

@@ -27,6 +27,8 @@
 #import "UshahidiProjAppDelegate.h"
 #import "API.h"
 #import "selectCatagory.h"
+#import "constants.h"
+
 
 @implementation addIncident
 
@@ -54,13 +56,11 @@
 	[tv resignFirstResponder];
 	[textTitle resignFirstResponder];
 	
-	// Date Formatter to Format the Date of Incident
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];
-	NSDate *myDate = [[NSDate alloc] init];
-	myDate = [dateFormatter dateFromString:app.newIncident.datetime];
+	// XXX TODO: move all this to [IncidentModel toDictionary]
+	NSDate *myDate = app.newIncident.datetime;
 	
-	// Date Formatter to Format the Date of Incident
+	// Date Formatters to extract attributes of incident date.
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];	
 	NSDateFormatter *detailsTimeFormatter = [[NSDateFormatter alloc] init];
 	[detailsTimeFormatter setTimeStyle:NSDateFormatterShortStyle];
 	NSString *time = [[detailsTimeFormatter stringFromDate:myDate] lowercaseString];
@@ -74,6 +74,7 @@
 	{
 		ampm = @"pm";
 	}
+	
 	[dateFormatter setDateFormat:@"hh"];
 	int hour = [[dateFormatter stringFromDate:myDate] intValue];
 	
@@ -81,6 +82,7 @@
 	int minute = [[dateFormatter stringFromDate:myDate] intValue];
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
 	NSString *dateString = [dateFormatter stringFromDate:myDate] ;
+	
 	// Set the Data, Insert into Dictionary 
 	if([textTitle.text length]<=0 || [app.newIncident.cat length]<0 || [app.newIncident.lat length]<=0 || [app.newIncident.lng length]<=0)
 	{
@@ -124,9 +126,8 @@
 			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			tv.text = @"";
-			app.newIncident.cat =@"";
-			app.newIncident.lat = @"";
-			app.newIncident.lng = @"";
+			// TO DO: remove saved draft, once we've implemented drafts..
+			app.newIncident = [IncidentModel loadDraftOrCreateNew];
 			[tblView reloadData];		
 		}
 		else
@@ -155,12 +156,6 @@
 	[arr addObject:@"Photos:"];
 	[arr retain];
 	
-	df = [[NSDateFormatter alloc] init];
-	[df setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];
-	NSDate *dt = [NSDate date];
-	dateStr = [NSString stringWithFormat:@"%@",[df stringFromDate:dt]];
-	[dateStr retain];
-	app.newIncident.datetime = dateStr;
 	[super viewDidLoad];
 }
 
@@ -245,11 +240,9 @@
 	else if(indexPath.row == 1)
 	{
 		cell.showDate.hidden = FALSE;
-		cell.showDate.text = dateStr;
-		if([app.newIncident.datetime length]>0)
-		{
-			cell.showDate.text = app.newIncident.datetime;
-		}
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		[df setDateFormat:UI_DATE_FORMAT];
+		cell.showDate.text = [NSString stringWithFormat:@"%@",[df stringFromDate:app.newIncident.datetime]];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
 	else if(indexPath.row == 2)

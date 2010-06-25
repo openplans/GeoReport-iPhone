@@ -79,6 +79,7 @@
 		9E85D7C1116320C000C0D1BA /* showLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E85D7BF116320C000C0D1BA /* showLocation.m */; };
 		9E87EDBD1169FFB500D097D3 /* settingsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E87EDBB1169FFB500D097D3 /* settingsPage.m */; };
 		9E88A5D411636735007F961E /* photosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E88A5D211636735007F961E /* photosViewController.m */; };
+		CD7E765B11D537A8003D9463 /* constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7E765A11D537A8003D9463 /* constants.m */; };
 		CD88F14311D2883C00DC6B75 /* IncidentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88F14211D2883C00DC6B75 /* IncidentModel.m */; };
 /* End PBXBuildFile section */
 
@@ -184,6 +185,8 @@
 		9E87EDBB1169FFB500D097D3 /* settingsPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingsPage.m; sourceTree = "<group>"; };
 		9E88A5D111636735007F961E /* photosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = photosViewController.h; sourceTree = "<group>"; };
 		9E88A5D211636735007F961E /* photosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = photosViewController.m; sourceTree = "<group>"; };
+		CD7E765911D537A8003D9463 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		CD7E765A11D537A8003D9463 /* constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constants.m; sourceTree = "<group>"; };
 		CD88F14111D2883C00DC6B75 /* IncidentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidentModel.h; sourceTree = "<group>"; };
 		CD88F14211D2883C00DC6B75 /* IncidentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidentModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +221,8 @@
 				9E8048E2113490A600CF3826 /* viewIncident.m */,
 				9E804B6C1134CBB400CF3826 /* addIncident.h */,
 				9E804B6D1134CBB400CF3826 /* addIncident.m */,
+				CD7E765911D537A8003D9463 /* constants.h */,
+				CD7E765A11D537A8003D9463 /* constants.m */,
 				9E55B068115DFE7500B69B3A /* selectCatagory.h */,
 				9E55B069115DFE7500B69B3A /* selectCatagory.m */,
 				9E7C3ADD1145E2A10089111B /* dataCells.h */,
@@ -522,6 +527,7 @@
 				3739FF52119905CB00F06E6E /* SBJsonParser.m in Sources */,
 				3739FF53119905CB00F06E6E /* SBJsonWriter.m in Sources */,
 				CD88F14311D2883C00DC6B75 /* IncidentModel.m in Sources */,
+				CD7E765B11D537A8003D9463 /* constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
