@@ -240,12 +240,14 @@
 	else if(indexPath.row == 1)
 	{
 		cell.showDate.hidden = FALSE;
+		df = [[NSDateFormatter alloc] init];
 		[df setDateFormat:UI_DATE_FORMAT];
 		cell.showDate.text = [NSString stringWithFormat:@"%@",[df stringFromDate:app.newIncident.datetime]];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
 	else if(indexPath.row == 2)
 	{
+		// TODO: why do we use showDate for the category picker label?
 		cell.showDate.hidden = FALSE;
 		cell.showDate.text = @"Select";
 		if([app.newIncident.cat length]>0)

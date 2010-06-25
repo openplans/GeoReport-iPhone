@@ -19,6 +19,7 @@
 	// TODO: load saved draft from disk, if any.
 	IncidentModel *model = [[IncidentModel alloc] init];
 	model.datetime = [NSDate date];
+	[model.datetime retain];
 	return model;
 }
 
