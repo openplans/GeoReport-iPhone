@@ -240,7 +240,6 @@
 	else if(indexPath.row == 1)
 	{
 		cell.showDate.hidden = FALSE;
-		NSDateFormatter *df = [[NSDateFormatter alloc] init];
 		[df setDateFormat:UI_DATE_FORMAT];
 		cell.showDate.text = [NSString stringWithFormat:@"%@",[df stringFromDate:app.newIncident.datetime]];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
