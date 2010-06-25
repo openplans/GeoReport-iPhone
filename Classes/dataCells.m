@@ -56,10 +56,6 @@
 	df = [[NSDateFormatter alloc] init];
 	[df setDateFormat:UI_DATE_FORMAT];
 	app = [[UIApplication sharedApplication] delegate];
-	// TODO: do we really need categories here? isn't this just the date picker?
-	arrData = [[NSMutableArray alloc] init];
-	arrData = [app getCategories];
-	[arrData retain];
 	dtPicker.date = app.newIncident.datetime;
 	DateStr = [NSString stringWithFormat:@"%@",
 			   [df stringFromDate:dtPicker.date]];
