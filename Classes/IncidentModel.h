@@ -19,18 +19,22 @@
 
 
 @interface IncidentModel : NSObject {
-	NSString *cat,*lat,*lng;
+	NSString *cat,*lat,*lng, *locationName;
 	NSDate *datetime;
 	NSString *fname,*lname,*emailStr;
+	NSString *title, *description;
 }
 
 
-@property (nonatomic,retain) NSString *cat,*lat,*lng;
+@property (nonatomic,retain) NSString *cat,*lat,*lng, *locationName;
 @property (nonatomic,retain) NSString *fname,*lname,*emailStr;
+@property (nonatomic,retain) NSString *title, *description;
 @property (nonatomic,retain) NSDate *datetime;
 
 // Class methods.
++(IncidentModel *) createNew;
 +(IncidentModel *) loadDraftOrCreateNew;
++ (NSString *) draftFilePath;
 
 // Instance methods.
 -(BOOL) saveDraft;

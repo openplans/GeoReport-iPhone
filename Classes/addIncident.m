@@ -43,6 +43,7 @@
 
 -(void) done_Clicked
 {
+	//NSLog(@"text title %@", textTitle.text);
 	[tblView setContentOffset:CGPointMake(0, 0)];
 	[tv resignFirstResponder];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
@@ -56,59 +57,24 @@
 	[tv resignFirstResponder];
 	[textTitle resignFirstResponder];
 	
-	// XXX TODO: move all this to [IncidentModel toDictionary]
-	NSDate *myDate = app.newIncident.datetime;
+	IncidentModel *incident = app.newIncident;
 	
-	// Date Formatters to extract attributes of incident date.
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];	
-	NSDateFormatter *detailsTimeFormatter = [[NSDateFormatter alloc] init];
-	[detailsTimeFormatter setTimeStyle:NSDateFormatterShortStyle];
-	NSString *time = [[detailsTimeFormatter stringFromDate:myDate] lowercaseString];
-	NSRange titleResultsRange = [time rangeOfString:@"am" options:NSCaseInsensitiveSearch];
-	NSString *ampm;
-	if (titleResultsRange.length > 0)
-	{
-		ampm = @"am";
-	}
-	else
-	{
-		ampm = @"pm";
-	}
+	// Convert incident to dictionary for use with the ushahidi API.
 	
-	[dateFormatter setDateFormat:@"hh"];
-	int hour = [[dateFormatter stringFromDate:myDate] intValue];
-	
-	[dateFormatter setDateFormat:@"mm"];
-	int minute = [[dateFormatter stringFromDate:myDate] intValue];
-	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
-	NSString *dateString = [dateFormatter stringFromDate:myDate] ;
-	
-	// Set the Data, Insert into Dictionary 
-	if([textTitle.text length]<=0 || [app.newIncident.cat length]<0 || [app.newIncident.lat length]<=0 || [app.newIncident.lng length]<=0)
+	if([incident.title length]<=0 || [incident.cat length]<0 || [incident.lat length]<=0 || [incident.lng length]<=0)
 	{
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
 		[alert show];
 	} 
-	else {		
-		NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
+	else
+	{
+		NSMutableDictionary *tempdict = [incident toDictionary];
+		
+		// Set a few more things in the dictionary that the API uses,
+		// these are not really part of the data model.
 		[tempdict setObject:@"report" forKey:@"task"];
-		[tempdict setObject:textTitle.text forKey:@"incident_title"];
-		[tempdict setObject:tv.text forKey:@"incident_description"];
-		[tempdict setObject:dateString forKey:@"incident_date"];
-		[tempdict setObject:[NSString stringWithFormat:@"%d",hour] forKey:@"incident_hour"];
-		[tempdict setObject:[NSString stringWithFormat:@"%d",minute] forKey:@"incident_minute"];
-		[tempdict setObject:ampm forKey:@"incident_ampm"];
-		[tempdict setObject:app.newIncident.cat forKey:@"incident_category"];
-		[tempdict setObject:app.newIncident.lat forKey:@"latitude"];
-		[tempdict setObject:app.newIncident.lng forKey:@"longitude"];
-		[tempdict setObject:@"India" forKey:@"location_name"];
-		[tempdict setObject:app.fname forKey:@"person_first"];
-		[tempdict setObject:app.lname forKey:@"person_last"];
-		[tempdict setObject:app.emailStr forKey:@"person_email"];
 		[tempdict setObject:@"json" forKey:@"resp"];
-		//NSData *data = UIImageJPEGRepresentation(img1, 90);
-		//	[tempdict setObject:data forKey:@"incident_photo"];
-
+		
 		// Post the Data to Server
 		NSString *errorMsg;
 		if([app.imgArray count]>0 )
@@ -126,8 +92,7 @@
 			[alert setTitle:@"Reported!"];
 			textTitle.text = @"";
 			tv.text = @"";
-			// TO DO: remove saved draft, once we've implemented drafts..
-			app.newIncident = [IncidentModel loadDraftOrCreateNew];
+			app.newIncident = [IncidentModel createNew];
 			[tblView reloadData];		
 		}
 		else
@@ -148,7 +113,7 @@
 	tv.layer.cornerRadius = 10.0;
 	
 	app = [[UIApplication sharedApplication] delegate];
-	arr = [[NSMutableArray alloc] init];
+	arr = [[NSMutableArray alloc] init];	
 	[arr addObject:@"Title:"];
 	[arr addObject:@"Date & Time:"];
 	[arr addObject:@"Categories:"];
@@ -170,6 +135,14 @@
 	return TRUE;
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+	// Save title on the model.
+	// TODO: this is bad, we assume there is only one UITextField
+	app.newIncident.title = textField.text;
+}
+
+
 -(void)camera_Clicked
 {
 	cameraview *cv = [[cameraview alloc] initWithNibName:@"cameraview" bundle:nil];
@@ -186,6 +159,9 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
 	[tv resignFirstResponder];
+	// Description: save to the model.
+	// TODO: this is bad, we assume there's only one UITextView.
+	app.newIncident.description = textView.text;
 }
 
 /*
@@ -234,8 +210,10 @@
 		cell.txt.hidden = FALSE;
 		[cell.txt setPlaceholder:@"Required"];
 		cell.txt.delegate = self;
+		cell.txt.text = app.newIncident.title;
 		textTitle = cell.txt;
 		cell.accessoryType = UITableViewCellAccessoryNone; 
+		NSLog(@"cell text: %@", cell.txt.text); 
 	}
 	else if(indexPath.row == 1)
 	{

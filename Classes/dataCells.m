@@ -19,7 +19,7 @@
  *****************************************************************************/
 
 
-/* Sub-views used by addIncident. */
+/* Date picker sub-view used by addIncident. */
  
 #import "dataCells.h"
 #import "UshahidiProjAppDelegate.h"
