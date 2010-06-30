@@ -96,16 +96,16 @@
 
  	dict = [arrMapData objectAtIndex:0];
 	dict1 = [dict objectForKey:@"mapcenter"];
-	app.lat = [dict1 objectForKey:@"latitude"];
-	app.lng = [dict1 objectForKey:@"longitude"];
+	app.newIncident.lat = [dict1 objectForKey:@"latitude"];
+	app.newIncident.lng = [dict1 objectForKey:@"longitude"];
 }
 -(void)findMe
 {
 	[app showUser];
 	app.tempLat = app.mapView.userLocation.location.coordinate.latitude;
 	app.tempLng = app.mapView.userLocation.location.coordinate.longitude;
-	app.lat = [NSString stringWithFormat:@"%f",app.tempLat]; 
-	app.lng = [NSString stringWithFormat:@"%f",app.tempLng]; 
+	app.newIncident.lat = [NSString stringWithFormat:@"%f",app.tempLat]; 
+	app.newIncident.lng = [NSString stringWithFormat:@"%f",app.tempLng]; 
 }
 
 - (void)viewWillAppear:(BOOL)animated

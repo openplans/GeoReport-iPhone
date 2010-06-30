@@ -18,8 +18,12 @@
  **
  *****************************************************************************/
 
+
+/* Date picker sub-view used by addIncident. */
+ 
 #import "dataCells.h"
 #import "UshahidiProjAppDelegate.h"
+#import "constants.h"
 
 @implementation dataCells
 @synthesize selectedQ;
@@ -36,9 +40,7 @@
 
 -(void)done_Clicked
 {
-	app.dt = txt.text;
-	[app.dt retain];
-	
+	[app.newIncident setDateFromString:txt.text withFormat:UI_DATE_FORMAT];	
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -52,12 +54,9 @@
 	self.title = @"Select Date";
 	
 	df = [[NSDateFormatter alloc] init];
-	[df setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];	
+	[df setDateFormat:UI_DATE_FORMAT];
 	app = [[UIApplication sharedApplication] delegate];
-	arrData = [[NSMutableArray alloc] init];
-	arrData = [app getCategories];
-	[arrData retain];
-	dtPicker.date = [NSDate date];
+	dtPicker.date = app.newIncident.datetime;
 	DateStr = [NSString stringWithFormat:@"%@",
 			   [df stringFromDate:dtPicker.date]];
 	txt.text = DateStr;

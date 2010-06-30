@@ -29,6 +29,7 @@
 	IBOutlet UIDatePicker *dtPicker;
 	NSDateFormatter *df;
 	NSString *DateStr;
+	NSDate *datetime;
 	int selectedQ;
 	NSArray *arrData;
 	UshahidiProjAppDelegate *app;

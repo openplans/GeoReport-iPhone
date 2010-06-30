@@ -21,6 +21,7 @@
 #import "selectCatagory.h"
 #import "UshahidiProjAppDelegate.h"
 #import "API.h"
+
 @implementation selectCatagory
 @synthesize selectedArray;
 
@@ -38,7 +39,7 @@
 - (void)viewDidLoad {
 
 	app = [[UIApplication sharedApplication] delegate];
-	app.cat = @"";
+	app.newIncident.cat = @"";
 	tblView.delegate = self;
 	tblView.dataSource = self;
 	selectedImage = [[UIImage alloc]init];
@@ -148,15 +149,15 @@
 		NSMutableDictionary *dict = [rowsToBeSelected objectAtIndex:i];
 		NSMutableDictionary *dict1 = [dict objectForKey:@"category"];
 
-		NSString *result = [app.cat stringByAppendingString:[dict1 objectForKey:@"id"]];
+		NSString *result = [app.newIncident.cat stringByAppendingString:[dict1 objectForKey:@"id"]];
 		NSString *str1 = @",";
 		if(i==[rowsToBeSelected count]-1)
 		{
-			app.cat = result;	
+			app.newIncident.cat = result;	
 		}
 		else
 		{
-			app.cat = [result stringByAppendingString:str1];
+			app.newIncident.cat = [result stringByAppendingString:str1];
 		}
 	}
 	

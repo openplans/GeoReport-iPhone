@@ -27,6 +27,8 @@
 #import "UshahidiProjAppDelegate.h"
 #import "API.h"
 #import "selectCatagory.h"
+#import "constants.h"
+
 
 @implementation addIncident
 
@@ -43,9 +45,11 @@
 {
 	[incidentFieldsTableView setContentOffset:CGPointMake(0, 0)];
 	[descriptionEditView resignFirstResponder];
+	//NSLog(@"text title %@", textTitle.text);
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 
 }
+
 -(void) save_data
 {
 	
@@ -53,30 +57,24 @@
 	[descriptionEditView resignFirstResponder];
 	[textTitle resignFirstResponder];
 	
-	// Set the Data, Insert into Dictionary 
-	if([textTitle.text length]<=0 || [app.cat length]<0 || [app.lat length]<=0 || [app.lng length]<=0)
+	IncidentModel *incident = app.newIncident;
+	
+	// Convert incident to dictionary for use with the ushahidi API.
+	
+	if([incident.title length]<=0 || [incident.cat length]<0 || [incident.lat length]<=0 || [incident.lng length]<=0)
 	{
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
 		[alert show];
 	} 
-
-	else {
+	else
+	{
+		NSMutableDictionary *tempdict = [incident toDictionary];
 		
-		NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
+		// Set a few more things in the dictionary that the API uses,
+		// these are not really part of the data model.
 		[tempdict setObject:@"report" forKey:@"task"];
-		//[tempdict setObject:textTitle.text forKey:@"incident_title"];
-		[tempdict setObject:descriptionEditView.text forKey:@"incident_description"];
-		[tempdict setObject:app.cat forKey:@"incident_category"];
-		[tempdict setObject:app.lat forKey:@"latitude"];
-		[tempdict setObject:app.lng forKey:@"longitude"];
-		[tempdict setObject:@"India" forKey:@"location_name"]; // TODO: fix this
-		[tempdict setObject:app.fname forKey:@"person_first"];
-		[tempdict setObject:app.lname forKey:@"person_last"];
-		[tempdict setObject:app.emailStr forKey:@"person_email"];
 		[tempdict setObject:@"json" forKey:@"resp"];
-		//NSData *data = UIImageJPEGRepresentation(img1, 90);
-		//	[tempdict setObject:data forKey:@"incident_photo"];
-
+		
 		// Post the Data to Server
 		NSString *errorMsg;
 		if([app.imgArray count]>0 )
@@ -92,13 +90,9 @@
 		if( errorMsg == @"")
 		{
 			[alert setTitle:@"Reported!"];
-			textTitle.text = @"";
 			descriptionEditView.text = @"";
-			app.cat = @"";
-			app.lat = @"";
-			app.lng = @"";
+			app.newIncident = [IncidentModel createNew];
 			[incidentFieldsTableView reloadData];
-			// TODO: remove any saved draft data here?
 		}
 		else
 		{
@@ -122,7 +116,7 @@
 	// plus some other things we'll want like HTTP caching.
 	//[descriptionEditView setPlaceholder:@"Required or something"];
 	app = [[UIApplication sharedApplication] delegate];
-	arr = [[NSMutableArray alloc] init];
+	arr = [[NSMutableArray alloc] init];	
 	[arr addObject:@"Title:"];
 	//[arr addObject:@"Date & Time:"];
 	[arr addObject:@"Categories:"];
@@ -130,12 +124,6 @@
 	//[arr addObject:@"Photos:"];
 	[arr retain];
 	
-	df = [[NSDateFormatter alloc] init];
-	[df setDateFormat:@"EEE, MMM dd, yyyy hh:mm aa"];
-	NSDate *dt = [NSDate date];
-	dateStr = [NSString stringWithFormat:@"%@",[df stringFromDate:dt]];
-	[dateStr retain];
-	app.dt = dateStr;
 	[super viewDidLoad];
 }
 
@@ -149,6 +137,14 @@
 	[textField resignFirstResponder];
 	return TRUE;
 }
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+	// Save title on the model.
+	// TODO: this is bad, we assume there is only one UITextField
+	app.newIncident.title = textField.text;
+}
+
 
 -(void)camera_Clicked
 {
@@ -168,6 +164,9 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
 	[descriptionEditView resignFirstResponder];
+	// Description: save to the model.
+	// TODO: this is bad, we assume there's only one UITextView.
+	app.newIncident.description = textView.text;
 }
 
 /*
@@ -216,16 +215,27 @@
 		cell.txt.hidden = FALSE;
 		[cell.txt setPlaceholder:@"Required"];
 		cell.txt.delegate = self;
+		cell.txt.text = app.newIncident.title;
 		textTitle = cell.txt;
 		cell.accessoryType = UITableViewCellAccessoryNone; 
+		NSLog(@"cell text: %@", cell.txt.text); 
 	}
 	else if(indexPath.row == 1)
 	{
 		cell.showDate.hidden = FALSE;
+		df = [[NSDateFormatter alloc] init];
+		[df setDateFormat:UI_DATE_FORMAT];
+		cell.showDate.text = [NSString stringWithFormat:@"%@",[df stringFromDate:app.newIncident.datetime]];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
+	}
+	else if(indexPath.row == 2)
+	{
+		// TODO: why do we use showDate for the category picker label?
+		cell.showDate.hidden = FALSE;
 		cell.showDate.text = @"Select";
-		if([app.cat length]>0)
+		if([app.newIncident.cat length]>0)
 		{
-			cell.showDate.text = app.cat;
+			cell.showDate.text = app.newIncident.cat;
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}
@@ -234,9 +244,9 @@
 		cell.showDate.hidden = TRUE;
 		cell.showLoc.hidden = FALSE;
 		cell.showLoc.text = @"Select";
-		if([app.lat length] > 0)
+		if([app.newIncident.lat length] > 0)
 		{
-			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.lat,app.lng];
+			cell.showLoc.text = [NSString stringWithFormat:@"%@,%@",app.newIncident.lat,app.newIncident.lng];
 		}
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
 	}

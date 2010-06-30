@@ -83,6 +83,8 @@
 		9E88A5D411636735007F961E /* photosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E88A5D211636735007F961E /* photosViewController.m */; };
 		CD3BD23D11B9CD4600A0FBA7 /* sample_creation_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */; };
 		CD73B06011C0379900C5F55E /* sample_error.xml in Resources */ = {isa = PBXBuildFile; fileRef = CD73B05F11C0379900C5F55E /* sample_error.xml */; };
+		CD7E765B11D537A8003D9463 /* constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7E765A11D537A8003D9463 /* constants.m */; };
+		CD88F14311D2883C00DC6B75 /* IncidentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CD88F14211D2883C00DC6B75 /* IncidentModel.m */; };
 		CD9BCC7B11BFFD3500A8FC83 /* open311_logo_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = CD9BCC7A11BFFD3500A8FC83 /* open311_logo_medium.png */; };
 /* End PBXBuildFile section */
 
@@ -193,6 +195,10 @@
 		9E88A5D211636735007F961E /* photosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = photosViewController.m; sourceTree = "<group>"; };
 		CD3BD23C11B9CD4600A0FBA7 /* sample_creation_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_creation_response.xml; path = Resources/sample_creation_response.xml; sourceTree = "<group>"; };
 		CD73B05F11C0379900C5F55E /* sample_error.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sample_error.xml; path = Resources/sample_error.xml; sourceTree = "<group>"; };
+		CD7E765911D537A8003D9463 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		CD7E765A11D537A8003D9463 /* constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constants.m; sourceTree = "<group>"; };
+		CD88F14111D2883C00DC6B75 /* IncidentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidentModel.h; sourceTree = "<group>"; };
+		CD88F14211D2883C00DC6B75 /* IncidentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidentModel.m; sourceTree = "<group>"; };
 		CD9BCC7A11BFFD3500A8FC83 /* open311_logo_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = open311_logo_medium.png; path = Resources/Images/open311_logo_medium.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +234,8 @@
 				9E8048E2113490A600CF3826 /* viewIncident.m */,
 				9E804B6C1134CBB400CF3826 /* addIncident.h */,
 				9E804B6D1134CBB400CF3826 /* addIncident.m */,
+				CD7E765911D537A8003D9463 /* constants.h */,
+				CD7E765A11D537A8003D9463 /* constants.m */,
 				9E55B068115DFE7500B69B3A /* selectCatagory.h */,
 				9E55B069115DFE7500B69B3A /* selectCatagory.m */,
 				9E7C3ADD1145E2A10089111B /* dataCells.h */,
@@ -256,6 +264,8 @@
 				9E87EDBB1169FFB500D097D3 /* settingsPage.m */,
 				9E83E82D116C4C3D005EC5CA /* syncData.h */,
 				9E83E82E116C4C3D005EC5CA /* syncData.m */,
+				CD88F14111D2883C00DC6B75 /* IncidentModel.h */,
+				CD88F14211D2883C00DC6B75 /* IncidentModel.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -541,6 +551,8 @@
 				3739FF52119905CB00F06E6E /* SBJsonParser.m in Sources */,
 				3739FF53119905CB00F06E6E /* SBJsonWriter.m in Sources */,
 				8475AE1D11ADFA440000A4F7 /* GDataXMLNode.m in Sources */,
+				CD88F14311D2883C00DC6B75 /* IncidentModel.m in Sources */,
+				CD7E765B11D537A8003D9463 /* constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

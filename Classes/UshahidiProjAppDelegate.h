@@ -18,6 +18,8 @@
  **
  *****************************************************************************/
 
+#import "IncidentModel.h"
+
 @class API;
 @class MKMapView;
 @interface UshahidiProjAppDelegate : NSObject <UIApplicationDelegate> {
@@ -26,7 +28,6 @@
     UINavigationController *navigationController;
 	API *instanceAPI;
 	NSString *urlString,*fname,*lname,*emailStr;
-	NSString *dt,*cat,*lat,*lng;
 	MKMapView *mapView;
 	NSArray *incidentArray;
 	NSArray *mapArray;
@@ -35,13 +36,13 @@
 	NSString *reports;
 	float tempLat,tempLng;
 	NSArray *arrCategory;
+	IncidentModel *newIncident;
 	
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic,retain) NSString *urlString,*fname,*lname,*emailStr;
-@property (nonatomic,retain) NSString *dt,*cat,*lat,*lng;
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) NSArray *incidentArray;
 @property (nonatomic, retain) NSArray *mapArray;
@@ -51,6 +52,8 @@
 @property (nonatomic, readwrite) float tempLat,tempLng;
 @property (nonatomic, retain) NSArray *arrCategory;
 @property (nonatomic, retain) NSMutableArray *errors;
+@property (nonatomic, readwrite, retain) IncidentModel *newIncident;
+
 // Definitions of Methods of Implementation
 - (NSArray *)getCategories;
 - (NSArray *)getAllIncidents;
