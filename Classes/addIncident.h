@@ -30,7 +30,7 @@
 	IBOutlet UITextView *descriptionEditView;
 	IBOutlet UITableView *incidentFieldsTableView;
 	IBOutlet UIView *v1;
-	NSMutableArray *arr;
+	NSMutableArray *cellLabels;
 	NSDateFormatter *df;
 	NSString *dateStr;
 	UITextField *textTitle;

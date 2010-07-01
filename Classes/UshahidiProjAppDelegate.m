@@ -30,6 +30,8 @@
 @synthesize navigationController,urlString,fname,lname,emailStr,mapView;
 @synthesize incidentArray,imgArray,reports,mapType,mapArray,tempLat,tempLng,arrCategory;
 @synthesize newIncident;
+@synthesize errors;
+@synthesize addIncidentController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -41,7 +43,7 @@
 	emailStr = @"";
 	reports = @"100";
 	mapType = @"Google Stardard";
-	urlString = @"demo.ushahidi.com";
+	urlString = @"api.dc.gov/open311/v2_dev/"; // TODO: allow selecting known implementations (DC, SF, ...)
 
 	[mapType retain];
 	[urlString retain];
@@ -84,8 +86,6 @@
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Save data if appropriate
-
-	[newIncident saveDraft];
 	
 	// Remember which tab the UI was last displaying.
 	// (This is restored in TabbarController.m, because AFAICT
@@ -95,6 +95,11 @@
 	UITabBarController* tabBarController = [navigationController topViewController];
     [[NSUserDefaults standardUserDefaults] setInteger:[tabBarController	selectedIndex] 
 											   forKey:@"tabBarIndex"];
+
+	// The view controller knows how to save our model data, just signal it.
+	// (Oddly, viewDidUnload doesn't get called when the app is closing.)
+	[addIncidentController viewDidUnload];
+
 }
 
 -(NSArray *)getMapCentre

@@ -26,6 +26,7 @@
     
     UIWindow *window;
     UINavigationController *navigationController;
+	UIViewController *addIncidentController;
 	API *instanceAPI;
 	NSString *urlString,*fname,*lname,*emailStr;
 	MKMapView *mapView;
@@ -36,12 +37,14 @@
 	NSString *reports;
 	float tempLat,tempLng;
 	NSArray *arrCategory;
+	NSMutableArray *errors;
 	IncidentModel *newIncident;
 	
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) UIViewController *addIncidentController;
 @property (nonatomic,retain) NSString *urlString,*fname,*lname,*emailStr;
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) NSArray *incidentArray;

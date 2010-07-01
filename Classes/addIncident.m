@@ -35,23 +35,26 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	// This gets called every time the view appears, so it's a good time to reload data.
 	self.title = @"New Report";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 	self.navigationItem.backBarButtonItem.title = @"Cancel";
 	[incidentFieldsTableView reloadData];
+	descriptionEditView.text = app.newIncident.description;
 }
 
 -(void) done_Clicked
 {
 	[incidentFieldsTableView setContentOffset:CGPointMake(0, 0)];
 	[descriptionEditView resignFirstResponder];
-	//NSLog(@"text title %@", textTitle.text);
+	NSLog(@"Done clicked. textTitle.text = %@", textTitle.text);
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save_data)];
 
 }
 
 -(void) save_data
 {
+	// Saves to the server, not just a draft.
 	
 	// Resign the KeyBoard
 	[descriptionEditView resignFirstResponder];
@@ -63,7 +66,7 @@
 	
 	if([incident.title length]<=0 || [incident.cat length]<0 || [incident.lat length]<=0 || [incident.lng length]<=0)
 	{
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Some Data are Missing" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	} 
 	else
@@ -104,6 +107,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+// Generally this is only called once.
 - (void)viewDidLoad {
    
 	descriptionEditView.delegate = self;
@@ -116,13 +120,12 @@
 	// plus some other things we'll want like HTTP caching.
 	//[descriptionEditView setPlaceholder:@"Required or something"];
 	app = [[UIApplication sharedApplication] delegate];
-	arr = [[NSMutableArray alloc] init];	
-	[arr addObject:@"Title:"];
-	//[arr addObject:@"Date & Time:"];
-	[arr addObject:@"Categories:"];
-	[arr addObject:@"Location:"];
-	//[arr addObject:@"Photos:"];
-	[arr retain];
+	app.addIncidentController = self;
+	cellLabels = [[NSMutableArray alloc] init];	
+	[cellLabels addObject:@"Title:"];
+	[cellLabels addObject:@"Categories:"];
+	[cellLabels addObject:@"Location:"];
+	[cellLabels retain];
 	
 	[super viewDidLoad];
 }
@@ -140,9 +143,11 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-	// Save title on the model.
-	// TODO: this is bad, we assume there is only one UITextField
-	app.newIncident.title = textField.text;
+	if (textField == textTitle)
+	{
+		NSLog(@"saving title on incident model", nil);
+		app.newIncident.title = textField.text;
+	}
 }
 
 
@@ -163,10 +168,12 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-	[descriptionEditView resignFirstResponder];
-	// Description: save to the model.
-	// TODO: this is bad, we assume there's only one UITextView.
-	app.newIncident.description = textView.text;
+	if (textView == descriptionEditView)
+	{
+		// Save to the model.
+		app.newIncident.description = textView.text;
+		[textView resignFirstResponder];
+	}
 }
 
 /*
@@ -203,10 +210,12 @@
     if (cell == nil) {
         cell = [[[CustomCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
-	
-	incidentFieldsTableView.tableFooterView = v1;  // TODO: what is this? nothing?
+	// If I understand correctly, the tableFooterView is needed to a) prevent the table from
+	// just filling the screen with empty rows, and b) a place to put the Description text area
+	incidentFieldsTableView.tableFooterView = v1;
+
 	// Configure the cell.
-	cell.add_Label.text = [arr objectAtIndex:indexPath.row];
+	cell.add_Label.text = [cellLabels objectAtIndex:indexPath.row];
 	cell.add_Label.hidden = FALSE;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -218,7 +227,7 @@
 		cell.txt.text = app.newIncident.title;
 		textTitle = cell.txt;
 		cell.accessoryType = UITableViewCellAccessoryNone; 
-		NSLog(@"cell text: %@", cell.txt.text); 
+		NSLog(@"at indexPath.row == 0: textTitle = cell.txt = %@", cell.txt.text); 
 	}
 	else if(indexPath.row == 1)
 	{
@@ -259,7 +268,7 @@
 		selectCatagory *sc = [[selectCatagory alloc] initWithNibName:@"selectCatagory" bundle:nil];
 		[self.navigationController pushViewController:sc animated:YES];
 	}
-	if(indexPath.row == 2)
+	else if(indexPath.row == 2)
 	{ // Location
 		showMap *sh = [[showMap alloc] initWithNibName:@"showMap" bundle:nil];
 		[self.navigationController pushViewController:sh animated:YES];
@@ -276,10 +285,18 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+
+	// Have to re-stash all data on the incident just in case there is any unsaved
+	// data in any of the fields or sub-views; this happens if the user is in the middle
+	// of editing, so fooDidEndEditing doesn't get called. Sigh.
+	app.newIncident.description = descriptionEditView.text;
+	app.newIncident.title = textTitle.text;
+	[app.newIncident saveDraft];
 }
 
 
 - (void)dealloc {
+	NSLog(@"Deallocating addIncident instance", nil);
     [super dealloc];
 }
 

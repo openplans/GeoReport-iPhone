@@ -67,7 +67,6 @@
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	results = [responseXML JSONValue];
 	
-	//categories
 	NSMutableArray *mapcenters = [[results objectForKey:@"payload"] objectForKey:@"mapcenters"];
 	return mapcenters;
 	
@@ -127,10 +126,16 @@
 }
 
 - (NSMutableArray *)allIncidents {
-	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	NSError *error;	
+	NSURLResponse *response;
+	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml"];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
+	[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
 	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
-	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
+	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	return [self parseIncidents:responseData];
 	
 }

@@ -18,7 +18,7 @@
 @synthesize title, description;
 
 +(IncidentModel *) createNew {
-	IncidentModel *model = [[IncidentModel alloc] init];	
+	IncidentModel *model = [[IncidentModel alloc] init];
 	
 	// We set defaults first, just in case something's wrong with the draft file
 	// and not all required data is found there.
@@ -63,14 +63,12 @@
 }
 
 -(BOOL) saveDraft {
-	// TODO: save draft to disk.
 	NSString *path = [IncidentModel draftFilePath];
     NSLog(@"Saving json data to %@...", path);
     NSMutableDictionary *dict = [self toDictionary];
 	NSString *jsonString = [dict JSONRepresentation];
 	NSLog(@"JSON dumped: \n%@", jsonString);
-	NSError *error;
-	[jsonString writeToFile:path atomically:TRUE encoding:NSUTF8StringEncoding error:error];
+	[jsonString writeToFile:path atomically:TRUE encoding:NSUTF8StringEncoding error:nil];
 	return TRUE;
 }
 
@@ -155,6 +153,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *documentsPath = [documentsDirectory
 							   stringByAppendingPathComponent:@"ushahidi_draft.json"];
+	NSLog(@"Draft path: %@", documentsPath);
     return documentsPath;	
 }
 @end
