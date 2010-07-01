@@ -67,7 +67,6 @@
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	results = [responseXML JSONValue];
 	
-	//categories
 	NSMutableArray *mapcenters = [[results objectForKey:@"payload"] objectForKey:@"mapcenters"];
 	return mapcenters;
 	
@@ -113,24 +112,31 @@
 	
 	NSURLResponse *response;
 	
-	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=incidents&by=catid&id=%d",app.urlString, catid];
+	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml?service_code=%d", app.urlString, catid];
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
-	
-	// responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
-	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
-	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	NSLog(@"Fetching incidents by category", nil);	
+	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+	// FOR TESTING: get XML from a file.
+	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
+	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];	
+
 	NSMutableArray *incidents = [self parseIncidents:responseData];
-	[incidents removeLastObject]; // TODO: remove lame simulation of getting a subset.
 	return incidents;
 }
 
 - (NSMutableArray *)allIncidents {
-	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
-	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
-	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	NSError *error;	
+	NSURLResponse *response;
+	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml", app.urlString];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
+	[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	NSLog(@"Fetching all incidents", nil);
+	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	// FOR TESTING: get XML from a file.
+	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_requests" ofType:@"xml"];
+	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	return [self parseIncidents:responseData];
 	
 }
@@ -141,7 +147,7 @@
 
 	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:data options:0 error:&error];
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	NSLog(@"allIncidents Response: %@\n", responseXML );
+	NSLog(@"Parsing incidents from XML: %@\n", responseXML );
 	
 	//incidents
 	NSArray *requestNodes = [doc nodesForXPath:@"//service_requests/request" error:nil];
@@ -169,9 +175,7 @@
 		[[incidents objectAtIndex:i] setValue:[[NSArray alloc] init] forKey:@"media"];
 	}
 	
-	NSLog(@"allIncidents returning: %@", [incidents JSONFragment]);
-
-	sleep(1); // TODO: remove this, lame network simulation
+	NSLog(@"parseIncidents returning: %@", [incidents JSONFragment]);
 	return incidents;
 
 }
