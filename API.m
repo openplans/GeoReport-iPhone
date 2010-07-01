@@ -74,13 +74,14 @@
 
 	NSURLResponse *response;
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/services.xml",app.urlString];
-	
-	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
-	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
 	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
 	NSLog(@"Getting service types", nil);
 	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];	
+		
+	// For testing: get the XML from a file.
+	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
+	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"Service types raw XML:%@\n", responseXML );
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
@@ -185,16 +186,13 @@
 - (NSString*)postIncidentWithDictionary:(NSMutableDictionary *)incidentinfo {
 	// Returns an error message string, empty if successful.
 	
-	//[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	NSError *error;
 	NSURLResponse *response;
-	NSDictionary *results;
 	
-	//NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=report",app.urlString];
 	NSString *queryURL = [NSString stringWithFormat:@"http://%@/requests.xml",app.urlString];
 
 	// TODO: de-hardcode jurisdiction. The API requires us to know it a priori, ugh.
-	queryURL = [NSString stringWithFormat:@"%@?jurisdiction_id=sfgov.org", queryURL];
+	queryURL = [NSString stringWithFormat:@"%@?jurisdiction_id=dc.gov", queryURL];
 
 	//form the rest of the url from the dict
 	// by mapping from our internal legacy ushahidi dictionary keys
@@ -236,18 +234,17 @@
 
 	// Response handling.
 	
-	// TODO: Set up a test server we can actually post this to!
-	//responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	//responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	// Randomly simulate 'success' or 'failure'.
-	NSString *dataFilePath;
+	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+	// For testing, get the XML from a file and randomly simulate 'success' or 'failure'.
+/*	NSString *dataFilePath;
 	if (arc4random() % 2) {
 		dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_creation_response" ofType:@"xml"];
 	} else {
 		dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_error" ofType:@"xml"];
 	}
-	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+ responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+*/
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"Response from POST new incident: %@", responseXML);
 
