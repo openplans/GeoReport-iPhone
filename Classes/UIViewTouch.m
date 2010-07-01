@@ -15,21 +15,14 @@
 @implementation UIViewTouch
 @synthesize viewTouched;
 
-//The basic idea here is to intercept the view which is sent back as the firstresponder in hitTest.
-//We keep it preciously in the property viewTouched and we return our view as the firstresponder.
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
- 
-	NSLog(@"Hit Test");
-
-	// Touch Event goes here
-    viewTouched = [super hitTest:point withEvent:event];
-	app = [[UIApplication sharedApplication] delegate];
-	
-	// Put Annotation
+- (void) moveAnnotation: (CGPoint) point  {
+	// Put Annotation at the point, recenter the map.
 	NSArray *existingpoints = app.mapView.annotations;
 	if([existingpoints count] > 0)
+	{
 		[app.mapView removeAnnotations:existingpoints];
-	  [app.mapView setShowsUserLocation:NO];
+	}
+	[app.mapView setShowsUserLocation:NO];
 	// Annotation Location 
 	CLLocationCoordinate2D loc = [app.mapView convertPoint:point toCoordinateFromView:self];
 	//MKPlacemark *pl=[[MKPlacemark alloc] initWithCoordinate:loc addressDictionary:nil];
@@ -41,7 +34,22 @@
     MyAnnotation *ann = [[MyAnnotation alloc] init];
 	ann.coordinate = loc;
 	[app.mapView addAnnotation:ann];
+	[app.mapView setCenterCoordinate:loc animated:YES];
+
+}
+
+//The basic idea here is to intercept the view which is sent back as the firstresponder in hitTest.
+//We keep it preciously in the property viewTouched and we return our view as the firstresponder.
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+ 
+	NSLog(@"Hit Test");
+
+	// Touch Event goes here
+    viewTouched = [super hitTest:point withEvent:event];
+	app = [[UIApplication sharedApplication] delegate];
 	
+	[self moveAnnotation: point];
+
 	// Add Annotation on Specific Location
 	//[app.mapView addAnnotation:pl];
 	return self;

@@ -56,17 +56,13 @@
 
 -(NSMutableArray *)mapLocation
 {
-	NSError *error;
-	NSURLResponse *response;
-	NSDictionary *results;
-	
-	NSString *queryURL = [NSString stringWithFormat:@"http://%@/api?task=mapcenter",app.urlString];
-	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
-	
-	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	results = [responseXML JSONValue];
-	
+	// Ushahidi has a way to get the default map center from the API,
+	// but GeoReport does not.
+	// For now, we're hardcoding DC's coordinates. Ugh.
+	// TODO: maybe geocode the city name?
+	responseXML = @"{\"payload\":{\"mapcenters\":[{\"mapcenter\":{\"latitude\":\"38.5342\",\"longitude\":\"-77.0212\"}}]},\"error\":{\"code\":\"0\",\"message\":\"No Error\"}}";
+	NSLog(@"Mapcenters raw:\n%@", responseXML);
+	NSMutableDictionary *results = [responseXML JSONValue];
 	NSMutableArray *mapcenters = [[results objectForKey:@"payload"] objectForKey:@"mapcenters"];
 	return mapcenters;
 	
@@ -76,11 +72,17 @@
 - (NSMutableArray *)categoryNames {
 	NSError *error;
 
+	NSURLResponse *response;
+	NSString *queryURL = [NSString stringWithFormat:@"http://%@/services.xml",app.urlString];
+	
 	// Temporarily get the XML from a file. TODO: fetch this via HTTP using GeoReport API
-	NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
-	responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	//NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"sample_request_types" ofType:@"xml"];
+	//responseData = [[NSMutableData alloc] initWithContentsOfFile:dataFilePath];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:queryURL]];
+	NSLog(@"Getting service types", nil);
+	responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];	
 	responseXML = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	NSLog(@"Response: %@\n", responseXML );
+	NSLog(@"Service types raw XML:%@\n", responseXML );
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
 
 	// We're assuming that every category has exactly one service_code, service_name, and service_description.

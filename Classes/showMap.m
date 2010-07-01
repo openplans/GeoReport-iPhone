@@ -88,16 +88,23 @@
 	[super viewDidLoad];
 }
 
+-(void) recenter
+{
+	CLLocationCoordinate2D center = app.mapView.centerCoordinate;
+	center.latitude = [app.newIncident.lat floatValue];
+	center.longitude = [app.newIncident.lng floatValue];
+	[app.mapView setCenterCoordinate:center animated:YES];
+	CGPoint point = [app.mapView convertCoordinate:center toPointToView:viewTouch];
+	[viewTouch moveAnnotation:point];
+}
 -(void)resetLocation
 {
-	arrMapData = [app getMapCentre];	
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-	NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
-
- 	dict = [arrMapData objectAtIndex:0];
-	dict1 = [dict objectForKey:@"mapcenter"];
-	app.newIncident.lat = [dict1 objectForKey:@"latitude"];
-	app.newIncident.lng = [dict1 objectForKey:@"longitude"];
+	arrMapData = [app getMapCentre];
+	NSMutableDictionary *center = [[arrMapData objectAtIndex:0] objectForKey:@"mapcenter"];
+	app.newIncident.lat = @"40.7111"; // [center objectForKey:@"latitude"];
+	app.newIncident.lng = @"-73.9565"; // [center objectForKey:@"longitude"];  
+	[self recenter];
+	
 }
 -(void)findMe
 {
@@ -106,6 +113,7 @@
 	app.tempLng = app.mapView.userLocation.location.coordinate.longitude;
 	app.newIncident.lat = [NSString stringWithFormat:@"%f",app.tempLat]; 
 	app.newIncident.lng = [NSString stringWithFormat:@"%f",app.tempLng]; 
+	[self recenter];
 }
 
 - (void)viewWillAppear:(BOOL)animated
