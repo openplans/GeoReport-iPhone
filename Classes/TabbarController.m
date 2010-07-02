@@ -22,7 +22,6 @@
 #import "viewIncident.h"
 #import "addIncident.h"
 #import "settings.h"
-#import "syncData.h"
  
 @implementation TabbarController
 
@@ -62,13 +61,8 @@
 	UINavigationController *nav3=[[UINavigationController alloc] initWithRootViewController:set];
 	set.tabBarItem.image = [UIImage imageNamed:@"settings.png"];
 	set.title = @"Settings";
-	
-	syncData *sc =[[syncData alloc] initWithNibName:@"syncData" bundle:nil];
-	UINavigationController *nav4=[[UINavigationController alloc] initWithRootViewController:sc];
-	sc.title = @"Synchronize";
-	sc.tabBarItem.image = [UIImage imageNamed:@"sync.png"];
-	
-	NSArray *controllers=[NSArray arrayWithObjects:nav1,nav2,nav3,nav4,nil];
+		
+	NSArray *controllers=[NSArray arrayWithObjects:nav1,nav2,nav3,nil];
 	self.viewControllers = controllers;
 //	[controllers release];
 	

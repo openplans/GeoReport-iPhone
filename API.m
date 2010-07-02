@@ -65,7 +65,6 @@
 	NSMutableDictionary *results = [responseXML JSONValue];
 	NSMutableArray *mapcenters = [[results objectForKey:@"payload"] objectForKey:@"mapcenters"];
 	return mapcenters;
-	
 }
 
 

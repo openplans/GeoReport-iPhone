@@ -76,7 +76,6 @@
 		9E804B6F1134CBB400CF3826 /* addIncident.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E804B6D1134CBB400CF3826 /* addIncident.m */; };
 		9E804BAB1134D39600CF3826 /* infoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E804BA91134D39600CF3826 /* infoScreen.m */; };
 		9E804C3B1134DFE500CF3826 /* settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E804C391134DFE500CF3826 /* settings.m */; };
-		9E83E830116C4C3D005EC5CA /* syncData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E83E82E116C4C3D005EC5CA /* syncData.m */; };
 		9E83E919116C66C5005EC5CA /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E83E917116C66C5005EC5CA /* MyAnnotation.m */; };
 		9E85D7C1116320C000C0D1BA /* showLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E85D7BF116320C000C0D1BA /* showLocation.m */; };
 		9E87EDBD1169FFB500D097D3 /* settingsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E87EDBB1169FFB500D097D3 /* settingsPage.m */; };
@@ -183,8 +182,6 @@
 		9E804BA91134D39600CF3826 /* infoScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = infoScreen.m; sourceTree = "<group>"; };
 		9E804C381134DFE500CF3826 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		9E804C391134DFE500CF3826 /* settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settings.m; sourceTree = "<group>"; };
-		9E83E82D116C4C3D005EC5CA /* syncData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syncData.h; sourceTree = "<group>"; };
-		9E83E82E116C4C3D005EC5CA /* syncData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = syncData.m; sourceTree = "<group>"; };
 		9E83E917116C66C5005EC5CA /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 		9E83E918116C66C5005EC5CA /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
 		9E85D7BE116320C000C0D1BA /* showLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = showLocation.h; sourceTree = "<group>"; };
@@ -262,8 +259,6 @@
 				9E85D7BF116320C000C0D1BA /* showLocation.m */,
 				9E87EDBA1169FFB500D097D3 /* settingsPage.h */,
 				9E87EDBB1169FFB500D097D3 /* settingsPage.m */,
-				9E83E82D116C4C3D005EC5CA /* syncData.h */,
-				9E83E82E116C4C3D005EC5CA /* syncData.m */,
 				CD88F14111D2883C00DC6B75 /* IncidentModel.h */,
 				CD88F14211D2883C00DC6B75 /* IncidentModel.m */,
 			);
@@ -542,7 +537,6 @@
 				9E85D7C1116320C000C0D1BA /* showLocation.m in Sources */,
 				9E88A5D411636735007F961E /* photosViewController.m in Sources */,
 				9E87EDBD1169FFB500D097D3 /* settingsPage.m in Sources */,
-				9E83E830116C4C3D005EC5CA /* syncData.m in Sources */,
 				9E83E919116C66C5005EC5CA /* MyAnnotation.m in Sources */,
 				3739FF4E119905CB00F06E6E /* NSObject+SBJSON.m in Sources */,
 				3739FF4F119905CB00F06E6E /* NSString+SBJSON.m in Sources */,
