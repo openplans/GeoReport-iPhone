@@ -24,4 +24,4 @@ Discussion: [http://lists.open311.org/discuss](http://lists.open311.org/discuss)
 
 Bug tracker: [http://developer.open311.org](http://developer.open311.org)
 
-[Source code](http://github.com/slinkp/GeoReport-iPhone)
+[Source code](http://github.com/openplans/GeoReport-iPhone)
