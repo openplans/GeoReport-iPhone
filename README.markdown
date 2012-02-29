@@ -1,5 +1,12 @@
 # GeoReport iPhone
 
+## Status
+
+This was a prototype and is not really production-ready. It is not actively developed.
+We recommend using one of the other [open source clients](http://wiki.open311.org/Main_Page#Open_Source_Clients).
+
+## About
+
 This app interacts with any [GeoReport web service](http://wiki.open311.org/GeoReport_v2) 
 to pull/push reports from/to an [Open311](http://open311.org) service implementing the
 GeoReport API.
